@@ -17,9 +17,12 @@
         
 		<div class="cuerpo" th:style="'background-image: url(' + @{img/films/billboard/{imagen}(imagen=${imgSelec})} + ');'">
 
-      <form class="Fdatares" name="Fdatareserva"
-                            th:method="POST"
-                            th:action="@{step3}">
+  <form class="Fdatares" name="Fdatareserva"
+    th:method="POST"
+    th:action="@{/step3}">
+
+
+
 
               <div class="mini-billboard-selected">
                 <div>
@@ -30,30 +33,30 @@
               <div class="DatPer">
                 <div>
                   <label>Nombre:</label>
-                  <input type="text" name="fnom" required />
+                  <input type="text" name="fnom" th:value="${formularioReserva.fnom}" required />
                 </div>
                 <div>
                   <label>Apellidos:</label>
-                  <input type="text" name="fapell" required />
+                  <input type="text" name="fapell" th:value="${formularioReserva.fapell}" required />
                 </div>
                 <div>
                   <label>e-mail:</label>
-                  <input type="email" name="fmail" required />
+                  <input type="email" name="fmail" th:value="${formularioReserva.fmail}" required />
                 </div>
                 <div>
                   <label>Repetir e-mail:</label>
-                  <input type="email" name="frepmail" required />
+                  <input type="email" name="frepmail" th:value="${formularioReserva.frepmail}" required />
                 </div>
               </div>
 
               <div class="DatRes">
                 <div>
                   <label>Fecha:</label>
-                  <input type="date" name="fdate" min="2022-09-10" max="2026-12-01" required />
+                  <input type="date" name="fdate" min="2022-09-10" max="2026-12-01" th:value="${formularioReserva.fdate}" required />
                 </div>
                 <div>
                   <label>Hora:</label>
-                  <input type="time" name="fhour" list="popularHours" value="17:00" min="17:00" max="23:00" step="10800" required />
+                  <input type="time" name="fhour" list="popularHours" th:value="${formularioReserva.fhour}" min="17:00" max="23:00" step="10800" required />
                     <datalist id="popularHours">
                         <option value="17:00">
                         <option value="20:00">
@@ -62,11 +65,11 @@
                 </div>
                     <div class="VerticalAling">
                       <label class="numentradas">Nº adultos:</label>
-                      <input type="number" name="fnumentradasadult" min="1" max="60" value="1" step="1" required />
+                      <input type="number" name="fnumentradasadult" min="1" max="60" th:value="${formularioReserva.fnumentradasadult}" step="1" required />
                     </div>  
                     <div class="VerticalAling">
                       <label class="numentradas">Nº menores 12 años:</label>
-                      <input type="number" name="fnumentradasmen" min="0" max="60" value="0" step="1" required />
+                      <input type="number" name="fnumentradasmen" min="0" max="60" th:value="${formularioReserva.fnumentradasmen}" step="1" required />
                     </div>  
                 </div>
               <div>
