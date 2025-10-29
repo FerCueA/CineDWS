@@ -8,55 +8,52 @@
     <link rel="stylesheet" th:href="@{/styles/estilos.css}">
 <body>
     <div class="bas"><div class="Slogan"><div class="NomSitio"></div></div></div>
-    <div class="base">
-        <div class="cabecera"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
-        <div class="subcabecera">
-			<div class="CuentaAtrasTres"></div>
-			<p>&nbsp;Introduzca los datos</p>
-		</div>
-        
-		<div class="cuerpo" th:style="'background-image: url(' + @{img/films/billboard/{imagen}(imagen=${imgSelec})} + ');'">
 
-  <form class="Fdatares" name="Fdatareserva"
-    th:method="POST"
-    th:action="@{/step3}">
-
-
-
-
-              <div class="mini-billboard-selected">
-                <div>
-                  <div th:style="'background-image: url(' + @{img/films/billboard/{imagen}(imagen=${imgSelec})} + ');'"></div>
-                </div>
-              </div>
+  <div class="base">
+    <div class="cabecera"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+    <div class="subcabecera">
+      <div class="CuentaAtrasTres"></div>
+      <p>&nbsp;Introduzca los datos</p>
+    </div>
+    <div class="cuerpo" th:style="'background-image: url(' + @{img/films/billboard/{imagen}(imagen=${formularioReserva.imgSelec})} + ');'">
+      <form class="Fdatares" name="Fdatareserva"
+        th:method="POST"
+        th:action="@{/step2}">
+      
+        <input type="hidden" name="imgSelec" th:value="${formularioReserva.imgSelec}" />
+        <div class="mini-billboard-selected">
+          <div>
+            <div th:style="'background-image: url(' + @{img/films/billboard/{imagen}(imagen=${formularioReserva.imgSelec})} + ');'"></div>
+          </div>
+        </div>
 
               <div class="DatPer">
                 <div>
                   <label>Nombre:</label>
-                  <input type="text" name="fnom" th:value="${formularioReserva.fnom}" required />
+                  <input type="text" name="fnom" th:value="${formularioReserva.fnom}" th:style="${errorFnom} ? 'border-color: red; box-shadow: 0 0 4px red;' : ''" />
                 </div>
                 <div>
                   <label>Apellidos:</label>
-                  <input type="text" name="fapell" th:value="${formularioReserva.fapell}" required />
+                  <input type="text" name="fapell" th:value="${formularioReserva.fapell}" th:style="${errorFapell} ? 'border-color: red; box-shadow: 0 0 4px red;' : ''" />
                 </div>
                 <div>
                   <label>e-mail:</label>
-                  <input type="email" name="fmail" th:value="${formularioReserva.fmail}" required />
+                  <input type="text" name="fmail"  th:value="${formularioReserva.fmail}" th:style="${errorFmail} ? 'border-color: red; box-shadow: 0 0 4px red;' : ''" />
                 </div>
                 <div>
                   <label>Repetir e-mail:</label>
-                  <input type="email" name="frepmail" th:value="${formularioReserva.frepmail}" required />
+                  <input type="text" name="frepmail"  th:value="${formularioReserva.frepmail}" th:style="${errorFrepmail} ? 'border-color: red; box-shadow: 0 0 4px red;' : ''" />
                 </div>
               </div>
 
               <div class="DatRes">
                 <div>
                   <label>Fecha:</label>
-                  <input type="date" name="fdate" min="2022-09-10" max="2026-12-01" th:value="${formularioReserva.fdate}" required />
+                  <input type="date" name="fdate" min="2022-09-10" max="2026-12-01" th:value="${formularioReserva.fdate}" th:style="${errorFdate} ? 'border-color: red; box-shadow: 0 0 4px red;' : ''" />
                 </div>
                 <div>
                   <label>Hora:</label>
-                  <input type="time" name="fhour" list="popularHours" th:value="${formularioReserva.fhour}" min="17:00" max="23:00" step="10800" required />
+                  <input type="time" name="fhour" list="popularHours" th:value="${formularioReserva.fhour}" min="17:00" max="23:00" step="10800" th:style="${errorFhour} ? 'border-color: red; box-shadow: 0 0 4px red;' : ''" />
                     <datalist id="popularHours">
                         <option value="17:00">
                         <option value="20:00">

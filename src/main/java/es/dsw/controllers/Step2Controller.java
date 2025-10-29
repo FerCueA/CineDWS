@@ -1,87 +1,92 @@
-
-
 package es.dsw.controllers;
 
 import es.dsw.models.FormularioReserva;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
+@SessionAttributes("formularioReserva")
 public class Step2Controller {
 
+	@ModelAttribute("formularioReserva")
+	public FormularioReserva crearReserva() {
+		return new FormularioReserva();
+	}
+
 	@GetMapping("/step2")
-	public String step2(@RequestParam(value = "imgSelec", required = false) String imgSelec,
-						@RequestParam(value = "error", required = false) String error,
-						Model model) {
-		if (imgSelec == null || imgSelec.isEmpty()) {
+	public String mostrarFormulario(
+			@RequestParam(value = "imgSelec", required = false) String imgSelec,
+			Model model,
+			@ModelAttribute("formularioReserva") FormularioReserva reserva) {
+
+		if (imgSelec != null && !imgSelec.isEmpty()) {
+			reserva.setImgSelec(imgSelec);
+		}
+
+		if (reserva.getImgSelec() == null || reserva.getImgSelec().isEmpty()) {
 			return "redirect:/step1";
 		}
-		model.addAttribute("imgSelec", imgSelec);
-		model.addAttribute("formularioReserva", new FormularioReserva());
-		if (error != null) {
-			model.addAttribute("error", error);
-		}
+
+		model.addAttribute("imgSelec", reserva.getImgSelec());
 		return "views/step2";
 	}
 
 	@PostMapping("/step2")
-	public String validarFormulario(@RequestParam(value = "imgSelec") String imgSelec,
-									@ModelAttribute FormularioReserva formularioReserva,
-									Model model) {
-		
+	public String procesarFormulario(
+			@RequestParam(value = "imgSelec", required = false) String imgSelec,
+			@ModelAttribute("formularioReserva") FormularioReserva reserva,
+			Model model) {
+
+		if (imgSelec != null && !imgSelec.isEmpty()) {
+			reserva.setImgSelec(imgSelec);
+		}
+
 		boolean hayError = false;
-		StringBuilder mensaje = new StringBuilder();
-		// Marcas de error para los campos
-		boolean errorFnom = false, errorFapell = false, errorFmail = false, errorFrepmail = false, errorFdate = false, errorFhour = false;
-		if (formularioReserva.getFnom() == null || formularioReserva.getFnom().isEmpty()) {
+		boolean errorNombre = false, errorEmail = false, errorRepetirEmail = false;
+		boolean errorFecha = false, errorHora = false, errorAdultos = false;
+
+		
+		if (reserva.getFnom() == null || reserva.getFnom().trim().isEmpty()) {
 			hayError = true;
-			errorFnom = true;
-			mensaje.append("El nombre es obligatorio. ");
+			errorNombre = true;
 		}
-		if (formularioReserva.getFapell() == null || formularioReserva.getFapell().isEmpty()) {
+		if (reserva.getFmail() == null || reserva.getFmail().trim().isEmpty()) {
 			hayError = true;
-			errorFapell = true;
-			mensaje.append("Los apellidos son obligatorios. ");
+			errorEmail = true;
 		}
-		if (formularioReserva.getFmail() == null || formularioReserva.getFmail().isEmpty()) {
+		if (reserva.getFrepmail() == null || reserva.getFrepmail().trim().isEmpty()) {
 			hayError = true;
-			errorFmail = true;
-			mensaje.append("El email es obligatorio. ");
+			errorRepetirEmail = true;
 		}
-		if (formularioReserva.getFrepmail() == null || formularioReserva.getFrepmail().isEmpty()) {
+		if (!hayError && !reserva.getFmail().trim().equalsIgnoreCase(reserva.getFrepmail().trim())) {
 			hayError = true;
-			errorFrepmail = true;
-			mensaje.append("Repetir email es obligatorio. ");
+			errorRepetirEmail = true;
 		}
-		if (formularioReserva.getFdate() == null || formularioReserva.getFdate().isEmpty()) {
+		if (reserva.getFdate() == null || reserva.getFdate().trim().isEmpty()) {
 			hayError = true;
-			errorFdate = true;
-			mensaje.append("La fecha es obligatoria. ");
+			errorFecha = true;
 		}
-		if (formularioReserva.getFhour() == null || formularioReserva.getFhour().isEmpty()) {
+		if (reserva.getFhour() == null || reserva.getFhour().trim().isEmpty()) {
 			hayError = true;
-			errorFhour = true;
-			mensaje.append("La hora es obligatoria. ");
+			errorHora = true;
 		}
+		if (reserva.getFnumentradasadult() <= 0) {
+			hayError = true;
+			errorAdultos = true;
+		}
+
 		if (hayError) {
-			model.addAttribute("imgSelec", imgSelec);
-			model.addAttribute("formularioReserva", formularioReserva);
-			model.addAttribute("error", mensaje.toString());
-			model.addAttribute("errorFnom", errorFnom);
-			model.addAttribute("errorFapell", errorFapell);
-			model.addAttribute("errorFmail", errorFmail);
-			model.addAttribute("errorFrepmail", errorFrepmail);
-			model.addAttribute("errorFdate", errorFdate);
-			model.addAttribute("errorFhour", errorFhour);
+			model.addAttribute("imgSelec", reserva.getImgSelec());
+			model.addAttribute("errorFnom", errorNombre);
+			model.addAttribute("errorFmail", errorEmail);
+			model.addAttribute("errorFrepmail", errorRepetirEmail);
+			model.addAttribute("errorFdate", errorFecha);
+			model.addAttribute("errorFhour", errorHora);
+			model.addAttribute("errorNumentradas", errorAdultos);
 			return "views/step2";
 		}
-		// Si todo está bien, pasar a step3
-		model.addAttribute("formularioReserva", formularioReserva);
+
 		return "redirect:/step3";
 	}
 }
-

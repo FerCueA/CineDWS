@@ -12,7 +12,9 @@ public class MainController {
     }
 
     @GetMapping("/end")
-    public String end() {
+    public String endGet() {
         return "views/end";
     }
+
+   
 }

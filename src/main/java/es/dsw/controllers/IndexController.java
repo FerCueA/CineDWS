@@ -4,11 +4,17 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import es.dsw.models.DatosCine;
+import jakarta.servlet.http.HttpSession;
+
 
 @Controller
 public class IndexController {
     @GetMapping({"/", "/index"})
-    public String index(Model model) {
+    public String index(Model model, HttpSession session) {
+    
+        session.invalidate();
+
+        
         DatosCine datos = DatosCine.calcularParaAhora();
         model.addAttribute("horaLocal", datos.getHoraLocal());
         model.addAttribute("fechaLocal", datos.getFechaLocal());

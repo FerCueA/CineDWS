@@ -2,6 +2,8 @@ package es.dsw.models;
 
 public class FormularioReserva {
 
+    private String imgSelec;
+
 
     private String fnom;
     private String fapell;
@@ -12,7 +14,16 @@ public class FormularioReserva {
     private int fnumentradasadult;
     private int fnumentradasmen;
 
+
     public FormularioReserva() {
+    }
+
+    public String getImgSelec() {
+        return imgSelec;
+    }
+
+    public void setImgSelec(String imgSelec) {
+        this.imgSelec = imgSelec;
     }
 
 

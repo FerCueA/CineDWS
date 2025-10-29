@@ -36,12 +36,6 @@
             th:style="'background-image: url(' + @{img/films/billboard/{imagen}(imagen=${cartelPelicula})} + ');'"
           >
           </a>
-
-          <!--HTMLORIGINAL/ pierdo los estilos revisar
-          <div class="info">
-            <p><span>SALA 1</span> - 6.5€</p>
-          </div>
-          -->
           <div class="info">
             <p th:inline="text">
               <span th:text="'SALA ' + ${iter.index + 1}">SALA 1</span>

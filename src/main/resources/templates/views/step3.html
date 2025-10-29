@@ -234,7 +234,7 @@
           class="ButacasFm"
           name="FDataButacas"
           method="POST"
-          th:accion="@{step4}"
+          th:action="@{/step4}"
         >
           <input
             id="txtButacas"
@@ -242,7 +242,7 @@
             name="FButacasSelected"
             value=""
           />
-          <a class="atrasbtn" th:href="@{step2}">&lt;&lt; Atras</a
+          <a class="atrasbtn" th:href="@{/step3/atras}">&lt;&lt; Atras</a
           ><a class="homebtn" th:href="@{index}">&nbsp;</a
           ><input id="SubmitButacas" type="submit" value="Siguiente &gt;&gt;" />
         </form>
