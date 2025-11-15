@@ -1,0 +1,368 @@
+-- MariaDB dump 10.19  Distrib 10.6.7-MariaDB, for debian-linux-gnu (x86_64)
+--
+
+DROP DATABASE IF EXISTS `DB_FILMCINEMA`;
+
+CREATE DATABASE `DB_FILMCINEMA`;
+--
+-- Table structure for table `DB_FILMCINEMA`.`BUYTICKETS_FILM`
+--
+
+DROP TABLE IF EXISTS `DB_FILMCINEMA`.`BUYTICKETS_FILM`;
+
+CREATE TABLE `DB_FILMCINEMA`.`BUYTICKETS_FILM` (
+  `IDBUYTICKETS_BTF` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Clave primaria',
+  `NAME_BTF` varchar(50) NOT NULL COMMENT 'Nombre del cliente',
+  `SURNAMES_BTF` varchar(100) DEFAULT NULL COMMENT 'Apellidos del cliente',
+  `EMAIL_BTF` varchar(100) NOT NULL COMMENT 'Correo electrónico del cliente',
+  `CARDHOLDER_BTF` varchar(100) DEFAULT NULL COMMENT 'Titular de la tarjeta de crédito/debito',
+  `CARDNUMBER_BTF` varchar(30) DEFAULT NULL COMMENT 'Número tarjeta de crédito/debito',
+  `MONTHCARD_BTF` varchar(2) DEFAULT NULL COMMENT 'Mes caducidad tarjeta de crédito/debito',
+  `YEARCARD_BTF` varchar(4) DEFAULT NULL COMMENT 'Año de caducidad de la tarjeta de crédito/debito',
+  `CCS_CARD_CODE_BTF` varchar(3) DEFAULT NULL COMMENT 'Código CCS de la tarjeta de crédito/debito',
+  `TOTALPRICE_BTF` float DEFAULT NULL COMMENT 'Precio total de la compra',
+  `S_ACTIVEROW_BTF` bit(1) NOT NULL DEFAULT b'1' COMMENT 'Registro activo',
+  `S_INSERTDATE_BTF` timestamp NULL DEFAULT NULL COMMENT 'Fecha de inserción',
+  `S_UPDATEDATE_BTF` timestamp NULL DEFAULT NULL COMMENT 'Fecha de modificación',
+  `S_IDUSER_BTF` int(11) NOT NULL COMMENT 'Usuario de modificación',
+  PRIMARY KEY (`IDBUYTICKETS_BTF`),
+  KEY `FK_BUYTICKETS_USER` (`S_IDUSER_BTF`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+
+
+--
+-- Dumping data for table `DB_FILMCINEMA`.`BUYTICKETS_FILM`
+--
+
+LOCK TABLES `DB_FILMCINEMA`.`BUYTICKETS_FILM` WRITE;
+
+UNLOCK TABLES;
+
+--
+-- Table structure for table `DB_FILMCINEMA`.`COUNTRY_FILM`
+--
+
+DROP TABLE IF EXISTS `DB_FILMCINEMA`.`COUNTRY_FILM`;
+
+CREATE TABLE `DB_FILMCINEMA`.`COUNTRY_FILM` (
+  `IDCOUNTRY_CF` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Clave primaria',
+  `COUNTRY_CF` varchar(50) NOT NULL COMMENT 'Nombre del país',
+  `S_ACTIVEROW_CF` bit(1) NOT NULL DEFAULT b'1' COMMENT 'Registro activo',
+  `S_INSERTDATE_CF` timestamp NULL DEFAULT current_timestamp() COMMENT 'Fecha de inserción',
+  `S_UPDATEDATE_CF` timestamp NULL DEFAULT current_timestamp() COMMENT 'Fecha de modificación',
+  `S_IDUSER_CF` int(11) NOT NULL COMMENT 'Usuario de modificación',
+  PRIMARY KEY (`IDCOUNTRY_CF`),
+  UNIQUE KEY `UK_COUNTRY_1` (`COUNTRY_CF`),
+  KEY `FK_COUNTRY_USER` (`S_IDUSER_CF`)
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4;
+
+
+--
+-- Dumping data for table `DB_FILMCINEMA`.`COUNTRY_FILM`
+--
+
+LOCK TABLES `DB_FILMCINEMA`.`COUNTRY_FILM` WRITE;
+
+INSERT INTO `DB_FILMCINEMA`.`COUNTRY_FILM` VALUES (1,'España','','2022-08-26 01:07:53','2022-08-26 01:07:53',2),(2,'Alemania','','2022-08-26 01:08:01','2022-08-26 01:08:01',2),(3,'Francia','','2022-08-26 01:08:10','2022-08-26 01:08:10',2),(4,'Reino Unido','','2022-08-26 01:08:24','2022-08-26 01:08:24',2),(5,'Irlanda','','2022-08-26 01:08:34','2022-08-26 01:08:34',2),(6,'Holanda','','2022-08-26 01:08:43','2022-08-26 01:08:43',2),(7,'Italia','','2022-08-26 01:08:54','2022-08-26 01:08:54',2),(8,'Rusia','','2022-08-26 01:09:02','2022-08-26 01:09:02',2),(9,'Estados Unidos','','2022-08-26 01:09:10','2022-08-26 01:09:10',2),(10,'Canada','','2022-08-26 01:09:17','2022-08-26 01:09:17',2),(11,'Argentina','','2022-08-26 01:09:25','2022-08-26 01:09:25',2),(12,'Mexico','','2022-08-26 01:09:34','2022-08-26 01:09:34',2),(13,'Australia','','2022-08-26 01:09:42','2022-08-26 01:09:42',2),(14,'Japón','','2022-08-26 01:09:50','2022-08-26 01:09:50',2),(15,'China','','2022-08-26 01:09:58','2022-08-26 01:09:58',2),(16,'India','','2022-08-26 01:10:07','2022-08-26 01:10:07',2);
+
+UNLOCK TABLES;
+
+--
+-- Table structure for table `DB_FILMCINEMA`.`GENRE_FILM`
+--
+
+DROP TABLE IF EXISTS `DB_FILMCINEMA`.`GENRE_FILM`;
+
+CREATE TABLE `DB_FILMCINEMA`.`GENRE_FILM` (
+  `IDGENRE_GF` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Clave primaria',
+  `GENRE_GF` varchar(50) NOT NULL COMMENT 'Nombre genero película',
+  `S_ACTIVEROW_GF` bit(1) NOT NULL DEFAULT b'1' COMMENT 'Registro activo',
+  `S_INSERTDATE_GF` timestamp NULL DEFAULT current_timestamp() COMMENT 'Fecha de inserción',
+  `S_UPDATEDATE_GF` timestamp NULL DEFAULT current_timestamp() COMMENT 'Fecha de modificación',
+  `S_IDUSER_GF` int(11) NOT NULL COMMENT 'Usuario de modificación',
+  PRIMARY KEY (`IDGENRE_GF`),
+  KEY `FK_GENRE_USER` (`S_IDUSER_GF`)
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4;
+
+
+--
+-- Dumping data for table `DB_FILMCINEMA`.`GENRE_FILM`
+--
+
+LOCK TABLES `DB_FILMCINEMA`.`GENRE_FILM` WRITE;
+
+INSERT INTO `DB_FILMCINEMA`.`GENRE_FILM` VALUES (1,'Acción','','2022-08-26 00:35:51','2022-08-26 00:35:51',2),(2,'Aventuras','','2022-08-26 00:36:02','2022-08-26 00:36:02',2),(3,'Ciencia Ficción','','2022-08-26 00:36:17','2022-08-26 00:36:17',2),(4,'Comedia','','2022-08-26 00:36:27','2022-08-26 00:36:27',2),(5,'Documental','','2022-08-26 00:36:38','2022-08-26 00:36:38',2),(6,'Drama','','2022-08-26 00:37:11','2022-08-26 00:37:11',2),(7,'Fantasía','','2022-08-26 00:37:20','2022-08-26 00:37:20',2),(8,'Musical','','2022-08-26 00:37:31','2022-08-26 00:37:31',2),(9,'Suspense','','2022-08-26 00:37:41','2022-08-26 00:37:41',2),(10,'Terror','','2022-08-26 00:37:52','2022-08-26 00:37:52',2);
+
+UNLOCK TABLES;
+
+--
+-- Table structure for table `DB_FILMCINEMA`.`PRODUCER_FILM`
+--
+
+DROP TABLE IF EXISTS `DB_FILMCINEMA`.`PRODUCER_FILM`;
+
+CREATE TABLE `DB_FILMCINEMA`.`PRODUCER_FILM` (
+  `IDPRODUCER_PF` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Clave primaria',
+  `PRODUCER_PF` varchar(50) NOT NULL COMMENT 'Distribuidora',
+  `S_ACTIVEROW_PF` bit(1) NOT NULL DEFAULT b'1' COMMENT 'Registro activo',
+  `S_INSERTDATE_PF` timestamp NULL DEFAULT current_timestamp() COMMENT 'Fecha de inserción',
+  `S_UPDATEDATE_PF` timestamp NULL DEFAULT current_timestamp() COMMENT 'Fecha de modificación',
+  `S_IDUSER_PF` int(11) NOT NULL COMMENT 'Usuario de modificación',
+  PRIMARY KEY (`IDPRODUCER_PF`),
+  KEY `FK_PRODUCER_USER` (`S_IDUSER_PF`)
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4;
+
+
+--
+-- Dumping data for table `DB_FILMCINEMA`.`PRODUCER_FILM`
+--
+
+LOCK TABLES `DB_FILMCINEMA`.`PRODUCER_FILM` WRITE;
+
+INSERT INTO `DB_FILMCINEMA`.`PRODUCER_FILM` VALUES (1,'Sonic Pictures Releasing','','2022-08-26 00:59:38','2022-08-26 00:59:38',2),(2,'Universal Pictures','','2022-08-26 01:00:03','2022-08-26 01:00:03',2),(3,'Walt Disney Pictures','','2022-08-26 01:00:13','2022-08-26 01:00:13',2),(4,'Heyday Films','','2022-08-26 01:00:23','2022-08-26 01:00:23',2),(5,'Genre Films','','2022-08-26 01:00:33','2022-08-26 01:00:33',2),(6,'Focus Features','','2022-08-26 01:00:43','2022-08-26 01:00:43',2),(7,'Monkeypaw Productions','','2022-08-26 01:00:53','2022-08-26 01:00:53',2),(8,'The Mediapro Studio','','2022-08-26 01:01:07','2022-08-26 01:01:07',2),(9,'Huayi Brothers','','2022-08-26 01:01:24','2022-08-26 01:01:24',2),(10,'Sega Sammy Holdings','','2022-08-26 01:01:38','2022-08-26 01:01:38',2),(11,'Warner Bros Pictures','','2022-08-26 01:01:46','2022-08-26 01:01:46',2),(12,'Paramount Pictures','','2022-08-26 01:01:55','2022-08-26 01:01:55',2),(13,'20th. Century Studios','','2022-08-26 01:02:03','2022-08-26 01:02:03',2),(15,'Tripictures','','2022-08-26 01:02:20','2022-08-26 01:02:20',2),(16,'Lionsgate','','2022-08-26 01:02:30','2022-08-26 01:02:30',2);
+
+UNLOCK TABLES;
+
+--
+-- Table structure for table `DB_FILMCINEMA`.`REPOSITORY_FILM`
+--
+
+DROP TABLE IF EXISTS `DB_FILMCINEMA`.`REPOSITORY_FILM`;
+
+CREATE TABLE `DB_FILMCINEMA`.`REPOSITORY_FILM` (
+  `IDFILM_RF` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Clave primaria',
+  `TITLE_RF` varchar(100) NOT NULL COMMENT 'Título película',
+  `SYNOPSIS_RF` varchar(500) DEFAULT NULL COMMENT 'Synopsis',
+  `IDGENRE_RF` int(11) NOT NULL COMMENT 'Genero',
+  `DIRECTOR_RF` varchar(100) DEFAULT NULL COMMENT 'Director',
+  `REPARTO_RF` varchar(500) DEFAULT NULL COMMENT 'Reparto de actores',
+  `ANIO_RF` int(4) NOT NULL COMMENT 'Año de estreno',
+  `DATEPREMIERE_RF` date DEFAULT NULL COMMENT 'Fecha de estreno',
+  `IDPRODUCER_RF` int(11) DEFAULT NULL COMMENT 'Distribuidora',
+  `IDCOUNTRY_RF` int(11) NOT NULL COMMENT 'País',
+  `S_ACTIVEROW_RF` bit(1) NOT NULL DEFAULT b'1' COMMENT 'Registro activo',
+  `S_INSERTDATE_RF` timestamp NULL DEFAULT current_timestamp() COMMENT 'Fecha de inserción',
+  `S_UPDATEDATE_RF` timestamp NULL DEFAULT current_timestamp() COMMENT 'Fecha de modificación',
+  `S_IDUSER_CF` int(11) NOT NULL COMMENT 'Usuario de modificación',
+  PRIMARY KEY (`IDFILM_RF`),
+  UNIQUE KEY `UK_REPOSITORY_1` (`TITLE_RF`),
+  KEY `FK_REPOSITORY_GENRE` (`IDGENRE_RF`),
+  KEY `FK_REPOSITORY_PRODUCER` (`IDPRODUCER_RF`),
+  KEY `FK_REPOSITORY_COUNTRY` (`IDCOUNTRY_RF`),
+  KEY `FK_REPOSITORY_USER` (`S_IDUSER_CF`)
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4;
+
+
+--
+-- Dumping data for table `DB_FILMCINEMA`.`REPOSITORY_FILM`
+--
+
+LOCK TABLES `DB_FILMCINEMA`.`REPOSITORY_FILM` WRITE;
+
+INSERT INTO `DB_FILMCINEMA`.`REPOSITORY_FILM` VALUES (1,'Morbius','',1,'Daniel Espinosa','Jared Leto, Matt Smith, Adria Arjona, Jared Harris, Al Madrigal, Tyrese Gibson',2022,'2022-03-10',1,9,'','2022-08-26 09:14:23','2022-08-26 09:14:23',2),(2,'Jurassic World: Dominio',NULL,2,'Colin Trevorrow','Chris Pratt, Bryce Dallas Howard, Laura Dern, Sam Neill, Jeff Goldblum, DeWanda Wise, Mamoudou Athie, BD Wong',2022,'2022-06-01',2,9,'','2022-08-26 09:18:32','2022-08-26 09:18:32',2),(3,'Lightyear',NULL,2,'Angus MacLane','Maria Lee, Matt Norte, Greg Peltz, Garrett Taylor',2022,'2022-06-16',3,9,'','2022-08-26 09:21:28','2022-08-26 09:21:28',2),(4,'Animales fantásticos',NULL,7,'David Yates','Eddie Redmayne, Jude Law, Ezra Miller, Dan Fogler, Alison Sudol, William Nadylam, Callum Turner',2022,'2022-04-08',11,9,'','2022-08-26 09:23:05','2022-08-26 09:23:05',2),(5,'Muerte en el Nilo',NULL,9,'Kenneth Branagh','Kenneth Branagh, Tom Bateman, Annette Bening, Russell Brand, Ali Fazal, Dawn French, Gal Gadot',2022,'2022-02-11',13,4,'','2022-08-26 09:24:37','2022-08-26 09:24:37',2),(6,'The Northman',NULL,1,'Robert Eggers','Alexander Skarsgard, Nicole Kidman, Claes Bang, Anya Taylor-Joy, Gustav Lindh, Ethan Hawke',2022,'2022-03-28',2,9,'','2022-08-26 09:26:18','2022-08-26 09:26:18',2),(7,'Nope',NULL,9,'Jordan Peele','Daniel Kaluuya, Keke Palmer, Steven Yeun, Michael Wincott, Brandon Perea, Wrenn Schmidt',2022,'2022-07-18',2,9,'','2022-08-26 09:28:18','2022-08-26 09:28:18',2),(8,'El buen patrón',NULL,6,'Fernando León de Aranoa','Javier Bardem, Manolo Solo, Almudena Amor, Óscar de la Fuente, Sonia Almarcha',2021,'2021-10-15',15,1,'','2022-08-26 09:29:30','2022-08-26 09:29:30',2),(9,'Moonfall',NULL,3,'Roland Emmerich','Halle Berry, Patrick Wilson, John Bradley-West, Michael Peña, Charlie Plummer, Kelly Yu',2022,'2022-02-04',16,2,'','2022-08-26 09:30:34','2022-08-26 09:30:34',2),(10,'Sonic 2',NULL,2,'Jeff Fowler','Jim Carrey, James Marsden, Tika Sumpter, Adam Pally, Natasha Rothwell, Lee Majdoub, Shemar Moore',2022,'2022-04-08',10,10,'','2022-08-26 09:31:59','2022-08-26 09:31:59',2),(11,'Encanto',NULL,2,'Byron Howard','Stephanie Beatriz, María Cecilia Botero, John Leguizamo, Mauro Castillo, Jessica Darrow, Angie Cepeda',2021,'2021-11-19',3,9,'','2022-08-26 09:32:53','2022-08-26 09:32:53',2),(12,'El método Williams',NULL,6,'Reinaldo Marcus Green',NULL,2021,'2021-11-19',11,9,'','2022-08-26 09:33:56','2022-08-26 09:33:56',2),(13,'Avatar 2',NULL,3,'James Cameron','Sam Worthington, Zoe Saldaña, Sigourney Weaver, Michelle Rodríguez, Stephen Lang, Giovanni Ribisi, Joel David Moore',2022,'2022-12-16',3,9,'','2022-08-26 09:35:09','2022-08-26 09:35:09',2),(14,'Top Gun',NULL,1,'Joseph Kosinski','Tom Cruise, Val Kilmer, Miles Teller, Jennifer Connelly, Glen Powell, Lyliana Wray, Ed Harris',2022,'2022-05-27',12,9,'','2022-08-26 09:36:10','2022-08-26 09:36:10',2);
+
+UNLOCK TABLES;
+
+--
+-- Table structure for table `DB_FILMCINEMA`.`ROL_FILM`
+--
+
+DROP TABLE IF EXISTS `DB_FILMCINEMA`.`ROL_FILM`;
+
+CREATE TABLE `DB_FILMCINEMA`.`ROL_FILM` (
+  `IDROL_RF` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Identificador del rol',
+  `ROLCODE_RF` varchar(50) NOT NULL COMMENT 'Código del rol',
+  `ROLNAME_RF` varchar(100) NOT NULL COMMENT 'Nombre del rol',
+  `S_ACTIVEROW_RF` bit(1) NOT NULL COMMENT 'Indicador de registro activo',
+  `S_INSERTDATE_RF` timestamp NULL DEFAULT current_timestamp() COMMENT 'Fecha y hora de inserción',
+  `S_UPDATEDATE_RF` timestamp NULL DEFAULT current_timestamp() COMMENT 'Fecha y hora de actualización',
+  PRIMARY KEY (`IDROL_RF`),
+  UNIQUE KEY `UK_ROL_1` (`ROLCODE_RF`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;
+
+
+--
+-- Dumping data for table `DB_FILMCINEMA`.`ROL_FILM`
+--
+
+LOCK TABLES `DB_FILMCINEMA`.`ROL_FILM` WRITE;
+
+INSERT INTO `DB_FILMCINEMA`.`ROL_FILM` VALUES (1,'admin','Administrador','','2022-08-25 22:53:00','2022-08-25 22:53:00'),(2,'userweb','Usuario de la web','','2022-08-25 22:53:51','2022-08-25 22:53:51'),(3,'commercial','Comercial responsable de ventas','','2022-08-25 22:56:06','2022-08-25 22:56:06'),(4,'basicuser','Usuario básico autenticado','','2022-08-26 00:22:06','2022-08-26 00:22:06');
+
+UNLOCK TABLES;
+
+--
+-- Table structure for table `DB_FILMCINEMA`.`ROOMCINEMA_FILM`
+--
+
+DROP TABLE IF EXISTS `DB_FILMCINEMA`.`ROOMCINEMA_FILM`;
+
+CREATE TABLE `DB_FILMCINEMA`.`ROOMCINEMA_FILM` (
+  `IDROOMCINEMA_RCF` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Clave primaria',
+  `NUMBERROOM_RCF` int(2) NOT NULL COMMENT 'Número de la sala',
+  `NAMEROOM_RCF` varchar(30) NOT NULL COMMENT 'Nombre de la sala',
+  `S_ACTIVEROW_RCF` bit(1) NOT NULL DEFAULT b'1' COMMENT 'Registro activo',
+  `S_INSERTDATE_RCF` timestamp NULL DEFAULT current_timestamp() COMMENT 'Fecha de inserción',
+  `S_UPDATEDATE_RCF` timestamp NULL DEFAULT current_timestamp() COMMENT 'Fecha de modificación',
+  `S_IDUSER_RCF` int(11) NOT NULL COMMENT 'Usuario de modificación',
+  PRIMARY KEY (`IDROOMCINEMA_RCF`),
+  UNIQUE KEY `UK_ROOMCINEMA_1` (`NUMBERROOM_RCF`),
+  KEY `FK_ROOMCINEMA_USER` (`S_IDUSER_RCF`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4;
+
+
+--
+-- Dumping data for table `DB_FILMCINEMA`.`ROOMCINEMA_FILM`
+--
+
+LOCK TABLES `DB_FILMCINEMA`.`ROOMCINEMA_FILM` WRITE;
+
+INSERT INTO `DB_FILMCINEMA`.`ROOMCINEMA_FILM` VALUES (1,1,'Sala 1','','2022-08-26 01:16:37','2022-08-26 01:16:37',2),(2,2,'Sala 2','','2022-08-26 01:16:48','2022-08-26 01:16:48',2),(3,3,'Sala 3','','2022-08-26 01:17:00','2022-08-26 01:17:00',2),(4,4,'Sala 4','','2022-08-26 01:17:08','2022-08-26 01:17:08',2),(5,5,'Sala 5','','2022-08-26 01:17:17','2022-08-26 01:17:17',2),(6,6,'Sala 6','','2022-08-26 01:17:31','2022-08-26 01:17:31',2),(7,7,'Sala 7','','2022-08-26 01:17:41','2022-08-26 01:17:41',2);
+
+UNLOCK TABLES;
+
+--
+-- Table structure for table `DB_FILMCINEMA`.`SESSION_FILM`
+--
+
+DROP TABLE IF EXISTS `DB_FILMCINEMA`.`SESSION_FILM`;
+
+CREATE TABLE `DB_FILMCINEMA`.`SESSION_FILM` (
+  `IDSESSION_SSF` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Clave primaria',
+  `IDFILM_SSF` int(11) NOT NULL COMMENT 'Película',
+  `IDROOMCINEMA_SSF` int(11) NOT NULL COMMENT 'Sala de proyección',
+  `S_ACTIVEROW_SSF` bit(1) NOT NULL DEFAULT b'1' COMMENT 'Registro activo',
+  `S_INSERTDATE_SSF` timestamp NULL DEFAULT current_timestamp() COMMENT 'Fecha de inserción',
+  `S_UPDATEDATE_SSF` timestamp NULL DEFAULT current_timestamp() COMMENT 'Fecha de modificación',
+  `S_IDUSER_SSF` int(11) NOT NULL COMMENT 'Usuario de modificación',
+  PRIMARY KEY (`IDSESSION_SSF`),
+  UNIQUE KEY `UK_SESSION_1` (`IDFILM_SSF`,`IDROOMCINEMA_SSF`,`S_ACTIVEROW_SSF`),
+  KEY `FK_SESSION_ROOMCINEMA` (`IDROOMCINEMA_SSF`),
+  KEY `FK_SESSION_USER` (`S_IDUSER_SSF`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4;
+
+
+--
+-- Dumping data for table `DB_FILMCINEMA`.`SESSION_FILM`
+--
+
+LOCK TABLES `DB_FILMCINEMA`.`SESSION_FILM` WRITE;
+
+INSERT INTO `DB_FILMCINEMA`.`SESSION_FILM` VALUES (1,2,1,'','2022-08-26 09:49:06','2022-08-26 09:49:06',3),(2,3,2,'','2022-08-26 09:49:36','2022-08-26 09:49:36',3),(3,5,3,'','2022-08-26 09:49:51','2022-08-26 09:49:51',3),(4,14,4,'','2022-08-26 09:50:09','2022-08-26 09:50:09',3),(5,1,5,'','2022-08-26 09:50:52','2022-08-26 09:50:52',3),(6,6,6,'','2022-08-26 09:51:04','2022-08-26 09:51:04',3),(7,4,7,'','2022-08-26 09:51:25','2022-08-26 09:51:25',3);
+
+UNLOCK TABLES;
+
+--
+-- Table structure for table `DB_FILMCINEMA`.`TICKET_FILM`
+--
+
+DROP TABLE IF EXISTS `DB_FILMCINEMA`.`TICKET_FILM`;
+
+CREATE TABLE `DB_FILMCINEMA`.`TICKET_FILM` (
+  `IDTICKET_TKF` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Clave primaria',
+  `IDSESSION_TKF` int(11) NOT NULL COMMENT 'Sesión',
+  `DATESESSION_TKF` date NOT NULL COMMENT 'Fecha de la sesión',
+  `TIMESESSION_TKF` time NOT NULL COMMENT 'Hora de la sesión',
+  `SERIALCODE_TKF` varchar(16) NOT NULL COMMENT 'Serial o código QR',
+  `YOUNGER_TKF` bit(1) NOT NULL DEFAULT b'0' COMMENT '¿Es menor de 12?',
+  `PRICE_TKF` float DEFAULT NULL COMMENT 'Precio entrada',
+  `ROWSEAT_TKF` varchar(10) DEFAULT NULL COMMENT 'Butaca o asiento',
+  `IDBUYTICKETS_TKF` int(11) NOT NULL COMMENT 'Id de la compra/comprador',
+  `S_ACTIVEROW_TKF` bit(1) NOT NULL DEFAULT b'1' COMMENT 'Registro activo',
+  `S_INSERTDATE_TKF` timestamp NULL DEFAULT current_timestamp() COMMENT 'Fecha de inserción',
+  `S_UPDATEDATE_TKF` timestamp NULL DEFAULT current_timestamp() COMMENT 'Fecha de modificación',
+  `S_IDUSER_TKF` int(11) NOT NULL COMMENT 'Usuario de modificación',
+  PRIMARY KEY (`IDTICKET_TKF`),
+  UNIQUE KEY `UK_TICKET_1` (`SERIALCODE_TKF`),
+  UNIQUE KEY `UK_TICKET_2` (`IDSESSION_TKF`,`DATESESSION_TKF`,`TIMESESSION_TKF`,`ROWSEAT_TKF`),
+  KEY `FK_TICKET_BUYTICKETS` (`IDBUYTICKETS_TKF`),
+  KEY `FK_TICKET_USER` (`S_IDUSER_TKF`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+
+--
+-- Dumping data for table `DB_FILMCINEMA`.`TICKET_FILM`
+--
+
+LOCK TABLES `DB_FILMCINEMA`.`TICKET_FILM` WRITE;
+
+UNLOCK TABLES;
+
+--
+-- Table structure for table `DB_FILMCINEMA`.`USERROL_FILM`
+--
+
+DROP TABLE IF EXISTS `DB_FILMCINEMA`.`USERROL_FILM`;
+
+CREATE TABLE `DB_FILMCINEMA`.`USERROL_FILM` (
+  `IDUSER_URF` int(11) NOT NULL COMMENT 'Usuario',
+  `IDROL_URF` int(11) NOT NULL COMMENT 'Rol',
+  `S_INSERTDATE_URF` timestamp NULL DEFAULT current_timestamp() COMMENT 'Fecha de inserción',
+  `S_UPDATEDATE_URF` timestamp NULL DEFAULT current_timestamp() COMMENT 'Fecha de modificación',
+  PRIMARY KEY (`IDUSER_URF`,`IDROL_URF`),
+  KEY `FK_USERROL_ROL` (`IDROL_URF`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+
+--
+-- Dumping data for table `DB_FILMCINEMA`.`USERROL_FILM`
+--
+
+LOCK TABLES `DB_FILMCINEMA`.`USERROL_FILM` WRITE;
+
+INSERT INTO `DB_FILMCINEMA`.`USERROL_FILM` VALUES (1,2,'2022-08-26 00:27:24','2022-08-26 00:27:24'),(2,1,'2022-08-26 00:28:06','2022-08-26 00:28:06'),(2,4,'2022-08-26 00:28:22','2022-08-26 00:28:22'),(3,3,'2022-08-26 00:28:55','2022-08-26 00:28:55'),(3,4,'2022-08-26 00:28:40','2022-08-26 00:28:40'),(4,4,'2022-08-26 00:30:26','2022-08-26 00:30:26');
+
+UNLOCK TABLES;
+
+--
+-- Table structure for table `DB_FILMCINEMA`.`USER_FILM`
+--
+
+DROP TABLE IF EXISTS `DB_FILMCINEMA`.`USER_FILM`;
+
+CREATE TABLE `DB_FILMCINEMA`.`USER_FILM` (
+  `IDUSER_USF` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Clave primaria',
+  `USERNAME_USF` varchar(50) NOT NULL COMMENT 'Username identificativo',
+  `PASSWORD_USF` varchar(100) NOT NULL COMMENT 'Contraseña',
+  `NAME_USF` varchar(50) NOT NULL COMMENT 'Nombre del usuario',
+  `FIRSTSURNAME_USF` varchar(50) NOT NULL COMMENT 'Primer apellido',
+  `SECOUNDSURNAME_USF` varchar(50) DEFAULT NULL COMMENT 'Segundo apellido',
+  `EMAIL_USF` varchar(100) DEFAULT NULL COMMENT 'Correo electrónico del usuario',
+  `S_ACTIVEROW_USF` bit(1) NOT NULL DEFAULT b'1' COMMENT 'Registro activo',
+  `S_INSERTDATE_USF` timestamp NULL DEFAULT current_timestamp() COMMENT 'Fecha de inserción',
+  `S_UPDATEDATE_USF` timestamp NULL DEFAULT current_timestamp() COMMENT 'Fecha de modificación',
+  PRIMARY KEY (`IDUSER_USF`),
+  UNIQUE KEY `UK_USER_1` (`USERNAME_USF`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;
+
+
+--
+-- Dumping data for table `DB_FILMCINEMA`.`USER_FILM`
+--
+
+LOCK TABLES `DB_FILMCINEMA`.`USER_FILM` WRITE;
+
+INSERT INTO `DB_FILMCINEMA`.`USER_FILM` VALUES (1,'userweb','1234','userweb','userweb',NULL,NULL,'','2022-08-26 00:13:29','2022-08-26 00:13:29'),(2,'elonmusk','Starship','Elon','Musk',NULL,'elonmusk@spacex.org','','2022-08-26 00:16:03','2022-08-26 00:16:03'),(3,'billgates','Windows11','Bill','Gates',NULL,'billgates@hotmail.com','','2022-08-26 00:17:20','2022-08-26 00:17:20'),(4,'jeffbezos','AmaZon2023','Jeff','Bezos',NULL,'jeffbezos@amazon.com','','2022-08-26 00:30:11','2022-08-26 00:30:11');
+
+UNLOCK TABLES;
+
+ALTER TABLE `DB_FILMCINEMA`.`BUYTICKETS_FILM` ADD CONSTRAINT `FK_BUYTICKETS_USER` FOREIGN KEY (`S_IDUSER_BTF`) REFERENCES `DB_FILMCINEMA`.`USER_FILM` (`IDUSER_USF`);
+ALTER TABLE `DB_FILMCINEMA`.`COUNTRY_FILM` ADD CONSTRAINT `FK_COUNTRY_USER` FOREIGN KEY (`S_IDUSER_CF`) REFERENCES `DB_FILMCINEMA`.`USER_FILM` (`IDUSER_USF`);
+ALTER TABLE `DB_FILMCINEMA`.`GENRE_FILM` ADD CONSTRAINT `FK_GENRE_USER` FOREIGN KEY (`S_IDUSER_GF`) REFERENCES `DB_FILMCINEMA`.`USER_FILM` (`IDUSER_USF`);
+ALTER TABLE `DB_FILMCINEMA`.`PRODUCER_FILM` ADD CONSTRAINT `FK_PRODUCER_USER` FOREIGN KEY (`S_IDUSER_PF`) REFERENCES `DB_FILMCINEMA`.`USER_FILM` (`IDUSER_USF`);
+ALTER TABLE `DB_FILMCINEMA`.`REPOSITORY_FILM` ADD CONSTRAINT `FK_REPOSITORY_COUNTRY` FOREIGN KEY (`IDCOUNTRY_RF`) REFERENCES `DB_FILMCINEMA`.`COUNTRY_FILM` (`IDCOUNTRY_CF`);
+ALTER TABLE `DB_FILMCINEMA`.`REPOSITORY_FILM` ADD CONSTRAINT `FK_REPOSITORY_GENRE` FOREIGN KEY (`IDGENRE_RF`) REFERENCES `DB_FILMCINEMA`.`GENRE_FILM` (`IDGENRE_GF`);
+ALTER TABLE `DB_FILMCINEMA`.`REPOSITORY_FILM` ADD CONSTRAINT `FK_REPOSITORY_PRODUCER` FOREIGN KEY (`IDPRODUCER_RF`) REFERENCES `DB_FILMCINEMA`.`PRODUCER_FILM` (`IDPRODUCER_PF`);
+ALTER TABLE `DB_FILMCINEMA`.`REPOSITORY_FILM` ADD CONSTRAINT `FK_REPOSITORY_USER` FOREIGN KEY (`S_IDUSER_CF`) REFERENCES `DB_FILMCINEMA`.`USER_FILM` (`IDUSER_USF`);
+ALTER TABLE `DB_FILMCINEMA`.`ROOMCINEMA_FILM` ADD CONSTRAINT `FK_ROOMCINEMA_USER` FOREIGN KEY (`S_IDUSER_RCF`) REFERENCES `DB_FILMCINEMA`.`USER_FILM` (`IDUSER_USF`);
+ALTER TABLE `DB_FILMCINEMA`.`SESSION_FILM` ADD CONSTRAINT `FK_SESSION_REPOSITORY` FOREIGN KEY (`IDFILM_SSF`) REFERENCES `DB_FILMCINEMA`.`REPOSITORY_FILM` (`IDFILM_RF`);
+ALTER TABLE `DB_FILMCINEMA`.`SESSION_FILM` ADD CONSTRAINT `FK_SESSION_ROOMCINEMA` FOREIGN KEY (`IDROOMCINEMA_SSF`) REFERENCES `DB_FILMCINEMA`.`ROOMCINEMA_FILM` (`IDROOMCINEMA_RCF`);
+ALTER TABLE `DB_FILMCINEMA`.`SESSION_FILM` ADD CONSTRAINT `FK_SESSION_USER` FOREIGN KEY (`S_IDUSER_SSF`) REFERENCES `DB_FILMCINEMA`.`USER_FILM` (`IDUSER_USF`);
+ALTER TABLE `DB_FILMCINEMA`.`TICKET_FILM` ADD CONSTRAINT `FK_TICKET_BUYTICKETS` FOREIGN KEY (`IDBUYTICKETS_TKF`) REFERENCES `DB_FILMCINEMA`.`BUYTICKETS_FILM` (`IDBUYTICKETS_BTF`);
+ALTER TABLE `DB_FILMCINEMA`.`TICKET_FILM` ADD CONSTRAINT `FK_TICKET_SESSION` FOREIGN KEY (`IDSESSION_TKF`) REFERENCES `DB_FILMCINEMA`.`SESSION_FILM` (`IDSESSION_SSF`);
+ALTER TABLE `DB_FILMCINEMA`.`TICKET_FILM` ADD CONSTRAINT `FK_TICKET_USER` FOREIGN KEY (`S_IDUSER_TKF`) REFERENCES `DB_FILMCINEMA`.`USER_FILM` (`IDUSER_USF`);
+ALTER TABLE `DB_FILMCINEMA`.`USERROL_FILM` ADD CONSTRAINT `FK_USERROL_ROL` FOREIGN KEY (`IDROL_URF`) REFERENCES `DB_FILMCINEMA`.`ROL_FILM` (`IDROL_RF`);
+ALTER TABLE `DB_FILMCINEMA`.`USERROL_FILM` ADD CONSTRAINT `FK_USERROL_USER` FOREIGN KEY (`IDUSER_URF`) REFERENCES `DB_FILMCINEMA`.`USER_FILM` (`IDUSER_USF`);
+
+
+-- Dump completed on 2022-08-28 18:33:48
