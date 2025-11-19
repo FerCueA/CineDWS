@@ -316,5 +316,11 @@ public class MySqlConnection {
 	public String msgError() {
 		return this.msgError;
 	}
+	
+
+	//Devuelve el objeto de conexión activo -> agregado para que funcione el DAO
+	public Connection getConnection() {
+        return this.connection;
+    }
 
 }

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Películas</title>
+    <link rel="stylesheet" href="/styles/estilos.css">
+</head>
+<body style=" color:white;">
+    <h1 style="color:white;">Listado de Películas</h1>
+    <table border="1" style="color:white; border-color:white;">
+        <thead>
+            <tr>
+                <th style="color:white;">Título</th>
+                <th style="color:white;">Sinopsis</th>
+                <th style="color:white;">Director</th>
+                <th style="color:white;">Reparto</th>
+                <th style="color:white;">Año</th>
+                <th style="color:white;">Fecha Estreno</th>
+                <th style="color:white;">Imagen</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Iterar sobre la lista de películas -->
+            <tr th:each="peli : ${peliculas}">
+                <td th:text="${peli.titulo}" style="color:white;"></td>
+                <td th:text="${peli.sinopsis}" style="color:white;"></td>
+                <td th:text="${peli.director}" style="color:white;"></td>
+                <td th:text="${peli.reparto}" style="color:white;"></td>
+                <td th:text="${peli.anio}" style="color:white;"></td>
+                <td th:text="${peli.fechaEstreno}" style="color:white;"></td>
+                <td>
+                    <img th:src="@{'/img/films/billboard/film' + ${peli.id} + '.jpg'}" alt="Imagen de la película" style="width:100px;">
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>
