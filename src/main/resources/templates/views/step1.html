@@ -28,18 +28,17 @@
         <p>&nbsp;Seleccione una película</p>
       </div>
       <div class="cuerpo">
-        <div th:each="cartelPelicula, iter : ${peliculas}">
+        <div th:each="pelicula : ${peliculas}">
           <a
-            id="Idfilm1"
             class="pelicula"
-            th:href="@{/step2(imgSelec=${cartelPelicula})}"
-            th:style="'background-image: url(' + @{img/films/billboard/{imagen}(imagen=${cartelPelicula})} + ');'"
+            th:href="@{/step2(idSesion=${pelicula.idSesion}, idPelicula=${pelicula.idPelicula}, numSala=${pelicula.numSala})}"
+            th:style="'background-image: url(' + @{${pelicula.rutaImagen}} + ');'"
           >
           </a>
           <div class="info">
             <p th:inline="text">
-              <span th:text="'SALA ' + ${iter.index + 1}">SALA 1</span>
-              - [[${precioEntrada}]]€
+              <span th:text="'SALA ' + ${pelicula.numSala}">SALA</span>
+              - <span th:text="${pelicula.precio} + '€'">Precio</span>
             </p>
           </div>
         </div>

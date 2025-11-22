@@ -28,8 +28,8 @@
       </div>
       <div class="subcabecera">
         <p class="fechor">
-          <span class="hora" th:text="${horaLocal}">16h 45m</span>
-          <span class="fecha" th:text="${fechaLocal}"
+          <span class="hora" th:text="${datosCine.horaLocal}">16h 45m</span>
+          <span class="fecha" th:text="${datosCine.fechaLocal}"
             >Miercoles, día 12 de Octubre</span
           >
         </p>
@@ -37,8 +37,8 @@
       <div class="cuerpo">
         <div class="spot1">
           <div>
-            <p th:text="${mensajeSemana}">Miércoles, Día del espectador.</p>
-            <p><span th:text="'desde ' + ${precioEntrada} + '€'">desde 3,5€</span></p>
+            <p th:text="${datosCine.mensajeSemana}">Miércoles, Día del espectador.</p>
+            <p><span th:text="'desde ' + ${datosCine.precioEntrada} + '€'">desde 3,5€</span></p>
           </div>
         </div>
         <div class="spot2">

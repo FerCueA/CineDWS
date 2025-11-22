@@ -230,6 +230,10 @@
             </div>
           </div>
         </div>
+        <!-- Mensaje de error de selección de butacas -->
+        <div th:if="${errorButacas}" style="color: red; font-weight: bold; margin-bottom: 10px;">
+            <span th:text="${errorButacas}"></span>
+        </div>
         <form
           class="ButacasFm"
           name="FDataButacas"

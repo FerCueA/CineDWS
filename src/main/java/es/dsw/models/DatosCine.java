@@ -2,6 +2,7 @@ package es.dsw.models;
 
 import java.time.DayOfWeek;
 import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 public class DatosCine {
     private String horaLocal;
@@ -16,10 +17,21 @@ public class DatosCine {
         this.precioEntrada = precioEntrada;
     }
 
-    public String getHoraLocal() { return horaLocal; }
-    public String getFechaLocal() { return fechaLocal; }
-    public String getMensajeSemana() { return mensajeSemana; }
-    public double getPrecioEntrada() { return precioEntrada; }
+    public String getHoraLocal() {
+        return horaLocal;
+    }
+
+    public String getFechaLocal() {
+        return fechaLocal;
+    }
+
+    public String getMensajeSemana() {
+        return mensajeSemana;
+    }
+
+    public double getPrecioEntrada() {
+        return precioEntrada;
+    }
 
     public static DatosCine calcularParaAhora() {
         LocalDateTime ahora = LocalDateTime.now();
@@ -68,13 +80,27 @@ public class DatosCine {
         return new DatosCine(horaLocal, fechaLocal, mensajeSemana, precioEntrada);
     }
 
+    public static int getCantidadPeliculasPorDia() {
+        DayOfWeek diaSemana = LocalDate.now().getDayOfWeek();
+        switch (diaSemana) {
+            case MONDAY:
+            case WEDNESDAY:
+            case SUNDAY:
+                return 4;
+            default:
+                return 7;
+        }
+    }
+
     private static String[] MESES = {
-        "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio",
-        "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"
+            "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio",
+            "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"
     };
+
     private static String obtenerNombreMes(int mesValor) {
         return MESES[mesValor - 1];
     }
+
     private static String formatHora(LocalDateTime hora) {
         int horaValor = hora.getHour();
         int minutoValor = hora.getMinute();
