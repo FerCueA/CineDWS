@@ -33,7 +33,7 @@
           name="Fdatabuy"
           method="POST"
           th:action="@{/end}"
-          th:object="${tarjetaDatos}"
+          th:object="${formularioReserva}"
         >
           <div class="CabResumenFac"><p>Datos de facturación</p></div>
           <div class="CuerResumen">
@@ -95,34 +95,17 @@
               <label>CCS:</label>
               <input type="number" th:field="*{ccs}" min="100" max="999" required />
             </div>
-          </div>
-                <option>36</option>
-                <option>37</option>
-                <option>38</option>
-                <option>39</option>
-                <option>40</option>
-              </select>
-            </div>
-            <div>
-              <label>CCS:</label
-              ><input
-                type="number"
-                name="fccstarjeta"
-                min="0"
-                max="999"
-                value=""
-                step="1"
-                required
-              />
             </div>
           </div>
           <div class="DatTarjeta">
-            <a class="atrasbtn" th:href="@{step3}">&lt;&lt; Atras</a
-            ><a class="homebtn" th:href="@{/home}">&nbsp;</a
-            ><input type="submit" value="Confirmar" />
-          </div>
+                <a class="atrasbtn" th:href="@{/step3}">&lt;&lt; Atrás</a>
+                <a class="homebtn" th:href="@{/home}">&nbsp;Inicio</a>
+                <input type="submit" value="Confirmar"/>
+            </div>
+        
         </form>
-      </div>
+
+       
       <div class="pie">
         <div></div>
         <div></div>

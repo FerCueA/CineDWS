@@ -13,7 +13,9 @@ public class TicketDAO {
                 +
                 "IDBUYTICKETS_TKF, S_ACTIVEROW_TKF, S_IDUSER_TKF) " +
                 "VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, b'1', 1)";
-        try (Connection conn = new MySqlConnection().getConnection();
+        MySqlConnection myConn = new MySqlConnection();
+        myConn.open();
+        try (Connection conn = myConn.getConnection();
                 PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setInt(1, idSession);
             ps.setString(2, fechaSesion);
@@ -28,6 +30,8 @@ public class TicketDAO {
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
+        } finally {
+            myConn.close();
         }
     }
 }

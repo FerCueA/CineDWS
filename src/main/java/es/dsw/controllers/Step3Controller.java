@@ -1,4 +1,3 @@
-
 package es.dsw.controllers;
 
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,7 +18,8 @@ public class Step3Controller {
     public String step3Get(@ModelAttribute("formularioReserva") FormularioReserva formularioReserva,
             Model model) {
         // Verificación: si no hay datos mínimos, redirigir al index
-        if (formularioReserva.getIdSesion() == null || formularioReserva.getIdPelicula() == null || formularioReserva.getNumSala() == null) {
+        if (formularioReserva.getIdSesion() == null || formularioReserva.getIdPelicula() == null
+                || formularioReserva.getNumSala() == null) {
             return "redirect:/index";
         }
         model.addAttribute("formularioReserva", formularioReserva);
@@ -28,10 +28,14 @@ public class Step3Controller {
 
     @PostMapping("/step4")
     public String step3Post(@ModelAttribute("formularioReserva") FormularioReserva formularioReserva,
-                            @RequestParam("FButacasSelected") String butacasSeleccionadas,
-                            Model model) {
+            @RequestParam("FButacasSelected") String butacasSeleccionadas,
+            Model model) {
+
         int totalButacas = formularioReserva.getFnumentradasadult() + formularioReserva.getFnumentradasmen();
+        // Normalizar separador
+        butacasSeleccionadas = butacasSeleccionadas.replace(";", ",").replaceAll(",$", "");
         String[] butacas = butacasSeleccionadas.split(",");
+
         if (butacasSeleccionadas == null || butacasSeleccionadas.trim().isEmpty() || butacas.length != totalButacas) {
             model.addAttribute("errorButacas", "Debes seleccionar exactamente " + totalButacas + " butacas.");
             model.addAttribute("formularioReserva", formularioReserva);

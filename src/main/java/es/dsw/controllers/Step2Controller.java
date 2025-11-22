@@ -13,6 +13,7 @@ import es.dsw.dao.SesionesSalasDAO;
 @Controller
 @SessionAttributes("formularioReserva")
 public class Step2Controller {
+
 	@ModelAttribute("formularioReserva")
 	public FormularioReserva crearReserva() {
 		return new FormularioReserva();
@@ -25,7 +26,9 @@ public class Step2Controller {
 			@RequestParam(required = false) Integer idPelicula,
 			@RequestParam(required = false) Integer numSala) {
 		// Verificación: si no hay datos mínimos, redirigir al index
-		if (formularioReserva.getIdSesion() == null || formularioReserva.getIdPelicula() == null || formularioReserva.getNumSala() == null) {
+		
+		if (formularioReserva.getIdSesion() == null || formularioReserva.getIdPelicula() == null
+				|| formularioReserva.getNumSala() == null) {
 			return "redirect:/index";
 		}
 		// Si los parámetros llegan, se actualizan los datos
@@ -43,10 +46,14 @@ public class Step2Controller {
 			model.addAttribute("tituloPelicula", tituloPelicula);
 			model.addAttribute("rutaImagen", rutaImagen);
 		} else {
-			// Si no llegan parámetros, se usan los datos ya guardados en el formularioReserva
+			// Si no llegan parámetros, se usan los datos ya guardados en el
+			// formularioReserva
 			model.addAttribute("tituloPelicula", formularioReserva.getTituloPelicula());
 			model.addAttribute("rutaImagen", formularioReserva.getImgSelec());
 		}
+		
+		
+		
 		model.addAttribute("formularioReserva", formularioReserva);
 		return "views/step2";
 	}
@@ -79,7 +86,8 @@ public class Step2Controller {
 			hayError = true;
 			mensajeError.append("Debe repetir el email.<br>");
 		}
-		if (formularioReserva.getFmail() != null && formularioReserva.getFrepmail() != null && !formularioReserva.getFmail().equals(formularioReserva.getFrepmail())) {
+		if (formularioReserva.getFmail() != null && formularioReserva.getFrepmail() != null
+				&& !formularioReserva.getFmail().equals(formularioReserva.getFrepmail())) {
 			model.addAttribute("errorFrepmail", true);
 			hayError = true;
 			mensajeError.append("Los emails no coinciden.<br>");

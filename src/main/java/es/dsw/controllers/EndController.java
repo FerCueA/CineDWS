@@ -9,37 +9,35 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import es.dsw.models.FormularioReserva;
 import es.dsw.dao.BuyTicketsDAO;
 import es.dsw.dao.TicketDAO;
-import es.dsw.models.TarjetaDatos;
 
 @Controller
-@SessionAttributes({"formularioReserva", "tarjetaDatos"})
+@SessionAttributes({ "formularioReserva" })
 public class EndController {
-    @ModelAttribute("tarjetaDatos")
-    public TarjetaDatos crearTarjetaDatos() {
-        return new TarjetaDatos();
-    }
     @PostMapping("/end")
     public String endPost(@ModelAttribute("formularioReserva") FormularioReserva formularioReserva,
-                         @ModelAttribute("tarjetaDatos") TarjetaDatos tarjetaDatos,
-                         Model model,
-                         @ModelAttribute("total") double total) {
+            Model model) {
         // Verificación: si no hay datos mínimos, redirigir al index
-        if (formularioReserva.getIdSesion() == null || formularioReserva.getIdPelicula() == null || formularioReserva.getNumSala() == null) {
+        if (formularioReserva.getIdSesion() == null || formularioReserva.getIdPelicula() == null
+                || formularioReserva.getNumSala() == null) {
             return "redirect:/index";
         }
+        // Calcular el total
+        double precioAdulto = 6.0;
+        double precioMenor = 3.5;
+        double total = formularioReserva.getFnumentradasadult() * precioAdulto
+                + formularioReserva.getFnumentradasmen() * precioMenor;
         // Registrar la compra
         BuyTicketsDAO compraDAO = new BuyTicketsDAO();
         boolean compraOk = compraDAO.insertarCompra(
-            formularioReserva.getFnom(),
-            formularioReserva.getFapell(),
-            formularioReserva.getFmail(),
-            tarjetaDatos.getTitular(),
-            tarjetaDatos.getNumero(),
-            tarjetaDatos.getMesCaduca(),
-            tarjetaDatos.getAnioCaduca(),
-            tarjetaDatos.getCcs(),
-            (float) total
-        );
+                formularioReserva.getFnom(),
+                formularioReserva.getFapell(),
+                formularioReserva.getFmail(),
+                formularioReserva.getTitular(),
+                formularioReserva.getNumero(),
+                formularioReserva.getMesCaduca(),
+                formularioReserva.getAnioCaduca(),
+                formularioReserva.getCcs(),
+                (float) total);
         // Suponiendo que el ID de la compra se puede recuperar (aquí solo ejemplo)
         int idCompra = 1; // Debes obtener el ID real generado
 
@@ -53,15 +51,14 @@ public class EndController {
             String serialCode = generarCodigoQR(formularioReserva, butacas[i]);
             qrCodes.add(serialCode);
             ticketDAO.insertarTicket(
-                formularioReserva.getIdSesion(),
-                formularioReserva.getFdate(),
-                formularioReserva.getFhour(),
-                serialCode,
-                esMenor,
-                precio,
-                butacas[i],
-                idCompra
-            );
+                    formularioReserva.getIdSesion(),
+                    formularioReserva.getFdate(),
+                    formularioReserva.getFhour(),
+                    serialCode,
+                    esMenor,
+                    precio,
+                    butacas[i],
+                    idCompra);
         }
 
         // Guardar los QR en el formulario para el GET
@@ -75,13 +72,16 @@ public class EndController {
 
     @GetMapping("/end")
     public String endGet(@ModelAttribute("formularioReserva") FormularioReserva formularioReserva,
-                        Model model) {
+            Model model) {
         // Verificación: si no hay datos mínimos, redirigir al index
-        if (formularioReserva.getIdSesion() == null || formularioReserva.getIdPelicula() == null || formularioReserva.getNumSala() == null) {
+        if (formularioReserva.getIdSesion() == null || formularioReserva.getIdPelicula() == null
+                || formularioReserva.getNumSala() == null) {
             return "redirect:/index";
         }
         // Generar lista de QR si no existe
-        String[] butacas = formularioReserva.getButacasSeleccionadas() != null ? formularioReserva.getButacasSeleccionadas().split(",") : new String[0];
+        String[] butacas = formularioReserva.getButacasSeleccionadas() != null
+                ? formularioReserva.getButacasSeleccionadas().split(",")
+                : new String[0];
         java.util.List<String> qrCodes = new java.util.ArrayList<>();
         for (int i = 0; i < butacas.length; i++) {
             qrCodes.add(generarCodigoQR(formularioReserva, butacas[i]));
@@ -91,6 +91,7 @@ public class EndController {
         model.addAttribute("qrGenerados", true);
         return "views/end";
     }
+
     // Método para generar el código QR (simulado)
     private String generarCodigoQR(FormularioReserva reserva, String butaca) {
         // Aquí deberías usar una librería real de QR, pero para ejemplo:

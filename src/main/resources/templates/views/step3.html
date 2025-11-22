@@ -9,7 +9,7 @@
     <script th:src="@{/js/jquery-3.6.0.min.js}"></script>
     <script th:src="@{/js/step3.js}"></script>
     <script>
-      let MaxNumButacasToSelect = 3;
+      let MaxNumButacasToSelect = [[${formularioReserva.fnumentradasadult + formularioReserva.fnumentradasmen}]];
       let NumButacasSelected = 0;
     </script>
   </head>
@@ -247,8 +247,9 @@
             value=""
           />
           <a class="atrasbtn" th:href="@{/step3/atras}">&lt;&lt; Atras</a
-          ><a class="homebtn" th:href="@{/home}">&nbsp;</a
-          ><input id="SubmitButacas" type="submit" value="Siguiente &gt;&gt;" />
+          >
+          <a class="homebtn" th:href="@{/home}">&nbsp;</a>
+          <input id="SubmitButacas" type="submit" value="Siguiente &gt;&gt;" />
         </form>
       </div>
       <div class="pie">

@@ -14,7 +14,9 @@ public class BuyTicketsDAO {
                 +
                 "CCS_CARD_CODE_BTF, TOTALPRICE_BTF, S_ACTIVEROW_BTF, S_IDUSER_BTF) " +
                 "VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, b'1', 1)";
-        try (Connection conn = new MySqlConnection().getConnection();
+        MySqlConnection myConn = new MySqlConnection();
+        myConn.open();
+        try (Connection conn = myConn.getConnection();
                 PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, nombre);
             ps.setString(2, apellidos);
