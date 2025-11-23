@@ -13,14 +13,14 @@ import es.dsw.models.FormularioReserva;
 public class Step4Controller {
     @GetMapping("/step4")
     public String step4(@ModelAttribute("formularioReserva") FormularioReserva formularioReserva, Model model) {
-       
-        // mosstar datos en la consola
+
+        // PRINT DE CONSOLA PARA VERIFICAR LOS DATOS
         System.out.println("FormularioReserva en Step4Controller:" + formularioReserva);
-        
-        // Lógica de cálculo de total
-        double precioAdulto = 6.0; // Cambia según la lógica de tu actividad práctica 2
+
+        double precioAdulto = 6.0;
         double precioMenor = 3.5;
-        double total = formularioReserva.getFnumentradasadult() * precioAdulto + formularioReserva.getFnumentradasmen() * precioMenor;
+        double total = (formularioReserva.getFnumentradasadult() * precioAdulto)
+                + (formularioReserva.getFnumentradasmen() * precioMenor);
 
         model.addAttribute("formularioReserva", formularioReserva);
         model.addAttribute("total", total);

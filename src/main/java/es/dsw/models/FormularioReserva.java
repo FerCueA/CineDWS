@@ -11,9 +11,6 @@ public class FormularioReserva {
     private int fnumentradasadult;
     private int fnumentradasmen;
     private int totalButacas;
-
-    // Nuevos campos para datos de la sesión y película
-    // Campos de tarjeta
     private String titular;
     private String numero;
     private String mesCaduca;
@@ -35,16 +32,46 @@ public class FormularioReserva {
 
     public FormularioReserva() {
     }
-        public String getTitular() { return titular; }
-        public void setTitular(String titular) { this.titular = titular; }
-        public String getNumero() { return numero; }
-        public void setNumero(String numero) { this.numero = numero; }
-        public String getMesCaduca() { return mesCaduca; }
-        public void setMesCaduca(String mesCaduca) { this.mesCaduca = mesCaduca; }
-        public String getAnioCaduca() { return anioCaduca; }
-        public void setAnioCaduca(String anioCaduca) { this.anioCaduca = anioCaduca; }
-        public String getCcs() { return ccs; }
-        public void setCcs(String ccs) { this.ccs = ccs; }
+
+    public String getTitular() {
+        return titular;
+    }
+
+    public void setTitular(String titular) {
+        this.titular = titular;
+    }
+
+    public String getNumero() {
+        return numero;
+    }
+
+    public void setNumero(String numero) {
+        this.numero = numero;
+    }
+
+    public String getMesCaduca() {
+        return mesCaduca;
+    }
+
+    public void setMesCaduca(String mesCaduca) {
+        this.mesCaduca = mesCaduca;
+    }
+
+    public String getAnioCaduca() {
+        return anioCaduca;
+    }
+
+    public void setAnioCaduca(String anioCaduca) {
+        this.anioCaduca = anioCaduca;
+    }
+
+    public String getCcs() {
+        return ccs;
+    }
+
+    public void setCcs(String ccs) {
+        this.ccs = ccs;
+    }
 
     public int getTotalButacas() {
         return totalButacas;
@@ -158,32 +185,30 @@ public class FormularioReserva {
         this.tituloPelicula = tituloPelicula;
     }
 
-
-
     @Override
     public String toString() {
         return "{" +
-            " imgSelec='" + getImgSelec() + "'" +
-            ", fnom='" + getFnom() + "'" +
-            ", fapell='" + getFapell() + "'" +
-            ", fmail='" + getFmail() + "'" +
-            ", frepmail='" + getFrepmail() + "'" +
-            ", fdate='" + getFdate() + "'" +
-            ", fhour='" + getFhour() + "'" +
-            ", fnumentradasadult='" + getFnumentradasadult() + "'" +
-            ", fnumentradasmen='" + getFnumentradasmen() + "'" +
-            ", totalButacas='" + getTotalButacas() + "'" +
-            ", titular='" + getTitular() + "'" +
-            ", numero='" + getNumero() + "'" +
-            ", mesCaduca='" + getMesCaduca() + "'" +
-            ", anioCaduca='" + getAnioCaduca() + "'" +
-            ", ccs='" + getCcs() + "'" +
-            ", idSesion='" + getIdSesion() + "'" +
-            ", idPelicula='" + getIdPelicula() + "'" +
-            ", numSala='" + getNumSala() + "'" +
-            ", tituloPelicula='" + getTituloPelicula() + "'" +
-            ", butacasSeleccionadas='" + getButacasSeleccionadas() + "'" +
-            "}";
+                " imgSelec='" + getImgSelec() + "'" +
+                ", fnom='" + getFnom() + "'" +
+                ", fapell='" + getFapell() + "'" +
+                ", fmail='" + getFmail() + "'" +
+                ", frepmail='" + getFrepmail() + "'" +
+                ", fdate='" + getFdate() + "'" +
+                ", fhour='" + getFhour() + "'" +
+                ", fnumentradasadult='" + getFnumentradasadult() + "'" +
+                ", fnumentradasmen='" + getFnumentradasmen() + "'" +
+                ", totalButacas='" + getTotalButacas() + "'" +
+                ", titular='" + getTitular() + "'" +
+                ", numero='" + getNumero() + "'" +
+                ", mesCaduca='" + getMesCaduca() + "'" +
+                ", anioCaduca='" + getAnioCaduca() + "'" +
+                ", ccs='" + getCcs() + "'" +
+                ", idSesion='" + getIdSesion() + "'" +
+                ", idPelicula='" + getIdPelicula() + "'" +
+                ", numSala='" + getNumSala() + "'" +
+                ", tituloPelicula='" + getTituloPelicula() + "'" +
+                ", butacasSeleccionadas='" + getButacasSeleccionadas() + "'" +
+                "}";
     }
 
 }

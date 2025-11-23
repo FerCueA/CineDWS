@@ -2,7 +2,6 @@ package es.dsw.controllers;
 
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
 import es.dsw.models.FormularioReserva;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,11 +16,13 @@ public class Step3Controller {
     @GetMapping("/step3")
     public String step3Get(@ModelAttribute("formularioReserva") FormularioReserva formularioReserva,
             Model model) {
-        // Verificación: si no hay datos mínimos, redirigir al index
+
+        // RETURN DE VERIFICACION MINIMA
         if (formularioReserva.getIdSesion() == null || formularioReserva.getIdPelicula() == null
                 || formularioReserva.getNumSala() == null) {
             return "redirect:/index";
         }
+
         model.addAttribute("formularioReserva", formularioReserva);
         return "views/step3";
     }
@@ -32,7 +33,7 @@ public class Step3Controller {
             Model model) {
 
         int totalButacas = formularioReserva.getFnumentradasadult() + formularioReserva.getFnumentradasmen();
-        // Normalizar separador
+
         butacasSeleccionadas = butacasSeleccionadas.replace(";", ",").replaceAll(",$", "");
         String[] butacas = butacasSeleccionadas.split(",");
 

@@ -8,7 +8,8 @@ public class PeliculaSalaView {
     private int idPelicula;
     private String rutaImagen;
 
-    public PeliculaSalaView(int numSala, int idSesion, String tituloPelicula, double precio, int idPelicula, String rutaImagen) {
+    public PeliculaSalaView(int numSala, int idSesion, String tituloPelicula, double precio, int idPelicula,
+            String rutaImagen) {
         this.numSala = numSala;
         this.idSesion = idSesion;
         this.tituloPelicula = tituloPelicula;
@@ -17,10 +18,27 @@ public class PeliculaSalaView {
         this.rutaImagen = rutaImagen;
     }
 
-    public int getNumSala() { return numSala; }
-    public int getIdSesion() { return idSesion; }
-    public String getTituloPelicula() { return tituloPelicula; }
-    public double getPrecio() { return precio; }
-    public int getIdPelicula() { return idPelicula; }
-    public String getRutaImagen() { return rutaImagen; }
+    public int getNumSala() {
+        return numSala;
+    }
+
+    public int getIdSesion() {
+        return idSesion;
+    }
+
+    public String getTituloPelicula() {
+        return tituloPelicula;
+    }
+
+    public double getPrecio() {
+        return precio;
+    }
+
+    public int getIdPelicula() {
+        return idPelicula;
+    }
+
+    public String getRutaImagen() {
+        return rutaImagen;
+    }
 }

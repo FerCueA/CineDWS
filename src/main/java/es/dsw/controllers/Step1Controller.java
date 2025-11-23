@@ -4,12 +4,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
-
 import es.dsw.models.DatosCine;
 import java.util.ArrayList;
-
 import java.util.List;
-
 import es.dsw.models.PeliculaSalaView;
 import es.dsw.dao.SesionesSalasDAO;
 import es.dsw.models.SesionSala;
@@ -35,13 +32,14 @@ public class Step1Controller {
                     sesion.getIdPelicula(),
                     rutaImagen));
         }
-        // Mezclar aleatoriamente las películas
+
         java.util.Collections.shuffle(peliculas);
-        // Limitar el número de películas según el día
         int cantidad = DatosCine.getCantidadPeliculasPorDia();
+
         if (peliculas.size() > cantidad) {
             peliculas = peliculas.subList(0, cantidad);
         }
+
         model.addAttribute("peliculas", peliculas);
         model.addAttribute("precioEntrada", datosCine.getPrecioEntrada());
         return "views/step1";

@@ -13,7 +13,7 @@ import es.dsw.dao.SesionesSalasDAO;
 @Controller
 @SessionAttributes("formularioReserva")
 public class Step2Controller {
-
+	// RETURN DE VERIFICACION MINIMA
 	@ModelAttribute("formularioReserva")
 	public FormularioReserva crearReserva() {
 		return new FormularioReserva();
@@ -25,13 +25,12 @@ public class Step2Controller {
 			@RequestParam(required = false) Integer idSesion,
 			@RequestParam(required = false) Integer idPelicula,
 			@RequestParam(required = false) Integer numSala) {
-		// Verificación: si no hay datos mínimos, redirigir al index
-		
+
 		if (formularioReserva.getIdSesion() == null || formularioReserva.getIdPelicula() == null
 				|| formularioReserva.getNumSala() == null) {
 			return "redirect:/index";
 		}
-		// Si los parámetros llegan, se actualizan los datos
+
 		if (idPelicula != null && numSala != null && idSesion != null) {
 			SesionesSalasDAO dao = new SesionesSalasDAO();
 			String tituloPelicula = dao.getTituloPeliculaPorId(idPelicula);
@@ -46,14 +45,11 @@ public class Step2Controller {
 			model.addAttribute("tituloPelicula", tituloPelicula);
 			model.addAttribute("rutaImagen", rutaImagen);
 		} else {
-			// Si no llegan parámetros, se usan los datos ya guardados en el
-			// formularioReserva
+
 			model.addAttribute("tituloPelicula", formularioReserva.getTituloPelicula());
 			model.addAttribute("rutaImagen", formularioReserva.getImgSelec());
 		}
-		
-		
-		
+
 		model.addAttribute("formularioReserva", formularioReserva);
 		return "views/step2";
 	}
@@ -63,53 +59,53 @@ public class Step2Controller {
 			@ModelAttribute("formularioReserva") FormularioReserva formularioReserva,
 			Model model) {
 		boolean hayError = false;
-		StringBuilder mensajeError = new StringBuilder();
+		String mensajeError = "";
 
 		// Validaciones de campos obligatorios
 		if (formularioReserva.getFnom() == null || formularioReserva.getFnom().trim().isEmpty()) {
 			model.addAttribute("errorFnom", true);
 			hayError = true;
-			mensajeError.append("El nombre es obligatorio.<br>");
+			mensajeError += "El nombre es obligatorio.<br>";
 		}
 		if (formularioReserva.getFapell() == null || formularioReserva.getFapell().trim().isEmpty()) {
 			model.addAttribute("errorFapell", true);
 			hayError = true;
-			mensajeError.append("Los apellidos son obligatorios.<br>");
+			mensajeError += "Los apellidos son obligatorios.<br>";
 		}
 		if (formularioReserva.getFmail() == null || formularioReserva.getFmail().trim().isEmpty()) {
 			model.addAttribute("errorFmail", true);
 			hayError = true;
-			mensajeError.append("El email es obligatorio.<br>");
+			mensajeError += "El email es obligatorio.<br>";
 		}
 		if (formularioReserva.getFrepmail() == null || formularioReserva.getFrepmail().trim().isEmpty()) {
 			model.addAttribute("errorFrepmail", true);
 			hayError = true;
-			mensajeError.append("Debe repetir el email.<br>");
+			mensajeError += "Debe repetir el email.<br>";
 		}
 		if (formularioReserva.getFmail() != null && formularioReserva.getFrepmail() != null
 				&& !formularioReserva.getFmail().equals(formularioReserva.getFrepmail())) {
 			model.addAttribute("errorFrepmail", true);
 			hayError = true;
-			mensajeError.append("Los emails no coinciden.<br>");
+			mensajeError += "Los emails no coinciden.<br>";
 		}
 		if (formularioReserva.getFdate() == null || formularioReserva.getFdate().trim().isEmpty()) {
 			model.addAttribute("errorFdate", true);
 			hayError = true;
-			mensajeError.append("La fecha es obligatoria.<br>");
+			mensajeError += "La fecha es obligatoria.<br>";
 		}
 		if (formularioReserva.getFhour() == null || formularioReserva.getFhour().trim().isEmpty()) {
 			model.addAttribute("errorFhour", true);
 			hayError = true;
-			mensajeError.append("La hora es obligatoria.<br>");
+			mensajeError += "La hora es obligatoria.<br>";
 		}
 		if (formularioReserva.getFnumentradasadult() <= 0) {
 			model.addAttribute("errorFnumentradasadult", true);
 			hayError = true;
-			mensajeError.append("Debe indicar al menos un adulto.<br>");
+			mensajeError += "Debe indicar al menos un adulto.<br>";
 		}
 
 		if (hayError) {
-			model.addAttribute("mensajeError", mensajeError.toString());
+			model.addAttribute("mensajeError", mensajeError);
 			model.addAttribute("formularioReserva", formularioReserva);
 			return "views/step2";
 		}
