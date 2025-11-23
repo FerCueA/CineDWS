@@ -1,59 +1,65 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://thymeleaf.org">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>El rincón del Cine - Películas</title>
-    <link rel="stylesheet" th:href="@{styles/estilos.css}" />
-  </head>
-  <body>
-    <div class="bas">
-      <div class="Slogan"><div class="NomSitio"></div></div>
-    </div>
-    <div class="base">
-      <div class="cabecera">
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-      </div>
-      <div class="subcabecera">
-        <div class="CuentaAtrasCatro"></div>
-        <p>&nbsp;Seleccione una película</p>
-      </div>
-      <div class="cuerpo">
-        <div th:each="pelicula : ${peliculas}">
-          <a
-            class="pelicula"
-            th:href="@{/step2(idSesion=${pelicula.idSesion}, idPelicula=${pelicula.idPelicula}, numSala=${pelicula.numSala})}"
-            th:style="'background-image: url(' + @{${pelicula.rutaImagen}} + ');'"
-          >
-          </a>
-          <div class="info">
-            <p th:inline="text">
-              <span th:text="'SALA ' + ${pelicula.numSala}">SALA</span>
-              - <span th:text="${pelicula.precio} + '€'">Precio</span>
-            </p>
-          </div>
-        </div>
-      </div>
-      <div class="pie">
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-      </div>
-    </div>
-  </body>
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>El rincón del Cine - Películas</title>
+		<link rel="stylesheet" th:href="@{styles/estilos.css}" />
+	</head>
+	<body>
+		<div class="bas">
+			<div class="Slogan"><div class="NomSitio"></div></div>
+		</div>
+		<div class="base">
+			<div class="cabecera">
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+			</div>
+			<div class="subcabecera">
+				<div class="CuentaAtrasCatro"></div>
+				<p>&nbsp;Seleccione una película</p>
+			</div>
+			<div class="cuerpo">
+				<div th:each="pelicula : ${peliculas}">
+					<a
+						class="pelicula"
+						th:href="@{/step2(idSesion=${pelicula.idSesion}, idPelicula=${pelicula.idPelicula}, numSala=${pelicula.numSala})}"
+						th:style="'background-image: url(' + @{${pelicula.rutaImagen}} + ');'"
+					>
+					</a>
+					<div class="info">
+						<!-- REVISAR CODIGO, SE PIERDEN ESTILOS NO ES EL MISMO
+              <div class="info">
+              <p><span>SALA 2</span> - 6.5€</p>
+              </div>
+            -->
+
+						<p>
+							<span th:text="'SALA ' + ${pelicula.numSala}">SALA 2</span> -
+							<span th:text="${pelicula.precio} + '€'">6.5€</span>
+						</p>
+					</div>
+				</div>
+			</div>
+			<div class="pie">
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+			</div>
+		</div>
+	</body>
 </html>

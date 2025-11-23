@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import es.dsw.connections.MySqlConnection;
 
 public class BuyTicketsDAO {
-    public boolean insertarCompra(String nombre, String apellidos, String email, String titularTarjeta,
+    public int insertarCompraYObtenerId(String nombre, String apellidos, String email, String titularTarjeta,
             String numeroTarjeta,
             String mesTarjeta, String anioTarjeta, String ccs, float totalPrecio) {
         String sql = "INSERT INTO DB_FILMCINEMA.BUYTICKETS_FILM " +
@@ -17,7 +17,7 @@ public class BuyTicketsDAO {
         MySqlConnection myConn = new MySqlConnection();
         myConn.open();
         try (Connection conn = myConn.getConnection();
-                PreparedStatement ps = conn.prepareStatement(sql)) {
+                PreparedStatement ps = conn.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
             ps.setString(1, nombre);
             ps.setString(2, apellidos);
             ps.setString(3, email);
@@ -28,10 +28,19 @@ public class BuyTicketsDAO {
             ps.setString(8, ccs);
             ps.setFloat(9, totalPrecio);
             int filas = ps.executeUpdate();
-            return filas > 0;
+            if (filas > 0) {
+                try (java.sql.ResultSet rs = ps.getGeneratedKeys()) {
+                    if (rs.next()) {
+                        return rs.getInt(1);
+                    }
+                }
+            }
+            return -1;
         } catch (SQLException e) {
             e.printStackTrace();
-            return false;
+            return -1;
+        } finally {
+            myConn.close();
         }
     }
 }

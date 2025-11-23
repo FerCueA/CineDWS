@@ -30,10 +30,6 @@
             <div th:style="'background-image: url(' + ${formularioReserva.imgSelec} + ');'"></div>
           </div>
         </div>
-        <div class="info-sala">
-          <p><strong>Sala:</strong> <span th:text="*{numSala}"></span></p>
-          <p><strong>Pelicula:</strong> <span th:text="*{tituloPelicula}"></span></p>
-        </div>
         <div th:if="${mensajeError}" style="color: red; font-weight: bold; margin-bottom: 10px;">
           <span th:utext="${mensajeError}"></span>
         </div>
@@ -71,11 +67,11 @@
           </div>
           <div class="VerticalAling">
             <label class="numentradas">Nº adultos:</label>
-            <input type="number" th:field="*{fnumentradasadult}" min="1" max="60" step="1" th:style="${errorFnumentradasadult} ? 'border-color: red; box-shadow: 0 0 4px red;' : ''" required />
+            <input type="number" th:field="*{fnumentradasadult}" min="1" max="60" step="1" th:style="${errorFnumentradasadult} ? 'border-color: red; box-shadow: 0 0 4px red;' : ''"  />
           </div>
           <div class="VerticalAling">
             <label class="numentradas">Nº menores 12 años:</label>
-            <input type="number" th:field="*{fnumentradasmen}" min="0" max="60" step="1" required />
+            <input type="number" th:field="*{fnumentradasmen}" min="0" max="60" step="1" />
           </div>
         </div>
         <div>

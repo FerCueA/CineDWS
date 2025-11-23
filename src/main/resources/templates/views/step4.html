@@ -1,122 +1,166 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://thymeleaf.org">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>El rincón del Cine - Confirmación</title>
-    <link rel="stylesheet" th:href="@{/styles/estilos.css}" />
-  </head>
-  <body>
-    <div class="bas">
-      <div class="Slogan"><div class="NomSitio"></div></div>
-    </div>
-    <div class="base">
-      <div class="cabecera">
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-      </div>
-      <div class="subcabecera">
-        <div class="CuentaAtrasUno"></div>
-        <p>&nbsp;Revise y confirme la compra</p>
-      </div>
-      <div class="cuerpo">
-        <form
-          class="Fdatabuy"
-          name="Fdatabuy"
-          method="POST"
-          th:action="@{/end}"
-          th:object="${formularioReserva}"
-        >
-          <div class="CabResumenFac"><p>Datos de facturación</p></div>
-          <div class="CuerResumen">
-            <p><span>Nombre:</span> <span th:text="${formularioReserva.fnom}"></span></p>
-            <p><span>Apellidos:</span> <span th:text="${formularioReserva.fapell}"></span></p>
-            <p><span>E-mail:</span> <span th:text="${formularioReserva.fmail}"></span></p>
-          </div>
-          <div class="CabResumenBuy"><p>Resumen de la reserva</p></div>
-          <div class="CuerResumen">
-            <p><span>Película:</span> <span th:text="${formularioReserva.tituloPelicula}"></span></p>
-            <p><span>Sala:</span> <span th:text="${formularioReserva.numSala}"></span></p>
-            <p><span>Fecha:</span> <span th:text="${formularioReserva.fdate}"></span></p>
-            <p><span>Sesión:</span> <span th:text="${formularioReserva.fhour}"></span></p>
-            <p><span>Adultos:</span> <span th:text="${formularioReserva.fnumentradasadult}"></span> x 6.0€</p>
-            <p><span>&lt; 12 años:</span> <span th:text="${formularioReserva.fnumentradasmen}"></span> x 3.5€</p>
-            <p><span>Butacas:</span> <span th:text="${formularioReserva.butacasSeleccionadas}"></span></p>
-          </div>
-          <div class="CabResumenFac">
-            <p><span>TOTAL: <span th:text="${total}"></span> €</span></p>
-          </div>
-          <div class="CabResumenTar"><p>Confirmación de compra</p></div>
-          <div class="DatTarjeta">
-            <div>
-              <label>Titular:</label>
-              <input type="text" th:field="*{titular}" required />
-            </div>
-            <div>
-              <label>Nº Tarjeta:</label>
-              <input type="number" th:field="*{numero}" min="1000000000000000" max="9999999999999999" step="1" required />
-            </div>
-            <div>
-              <label>Mes:</label>
-              <select th:field="*{mesCaduca}">
-                <option value="01">01</option>
-                <option value="02">02</option>
-                <option value="03">03</option>
-                <option value="04">04</option>
-                <option value="05">05</option>
-                <option value="06">06</option>
-                <option value="07">07</option>
-                <option value="08">08</option>
-                <option value="09">09</option>
-                <option value="10">10</option>
-                <option value="11">11</option>
-                <option value="12">12</option>
-              </select>
-            </div>
-            <div>
-              <label>Año:</label>
-              <select th:field="*{anioCaduca}">
-                <option value="2022">2022</option>
-                <option value="2023">2023</option>
-                <option value="2024">2024</option>
-                <option value="2025">2025</option>
-                <option value="2026">2026</option>
-              </select>
-            </div>
-            <div>
-              <label>CCS:</label>
-              <input type="number" th:field="*{ccs}" min="100" max="999" required />
-            </div>
-            </div>
-          </div>
-          <div class="DatTarjeta">
-                <a class="atrasbtn" th:href="@{/step3}">&lt;&lt; Atrás</a>
-                <a class="homebtn" th:href="@{/home}">&nbsp;Inicio</a>
-                <input type="submit" value="Confirmar"/>
-            </div>
-        
-        </form>
-
-       
-      <div class="pie">
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-      </div>
-    </div>
-  </body>
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>El rincón del Cine - Confirmación</title>
+		<link rel="stylesheet" th:href="@{/styles/estilos.css}" />
+	</head>
+	<body>
+		<div class="bas">
+			<div class="Slogan"><div class="NomSitio"></div></div>
+		</div>
+		<div class="base">
+			<div class="cabecera">
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+			</div>
+			<div class="subcabecera">
+				<div class="CuentaAtrasUno"></div>
+				<p>&nbsp;Revise y confirme la compra</p>
+			</div>
+			<div class="cuerpo">
+				<form
+					class="Fdatabuy"
+					name="Fdatabuy"
+					method="POST"
+					th:action="@{/end}"
+					th:object="${formularioReserva}"
+				>
+					<div class="CabResumenFac"><p>Datos de facturación</p></div>
+					<div class="CuerResumen">
+						<p>
+							<span>Nombre:</span>
+							<span th:text="${formularioReserva.fnom}"></span>
+						</p>
+						<p>
+							<span>Apellidos:</span>
+							<span th:text="${formularioReserva.fapell}"></span>
+						</p>
+						<p>
+							<span>E-mail:</span>
+							<span th:text="${formularioReserva.fmail}"></span>
+						</p>
+					</div>
+					<div class="CabResumenBuy"><p>Resumen de la reserva</p></div>
+					<div class="CuerResumen">
+						<p>
+							<span>Película:</span>
+							<span th:text="${formularioReserva.tituloPelicula}"></span>
+						</p>
+						<p>
+							<span>Sala:</span>
+							<span th:text="${formularioReserva.numSala}"></span>
+						</p>
+						<p>
+							<span>Fecha:</span>
+							<span th:text="${formularioReserva.fdate}"></span>
+						</p>
+						<p>
+							<span>Sesión:</span>
+							<span th:text="${formularioReserva.fhour}"></span>
+						</p>
+						<p>
+							<span>Adultos:</span>
+							<span th:text="${formularioReserva.fnumentradasadult}"></span> x
+							6.0€
+						</p>
+						<p>
+							<span>&lt; 12 años:</span>
+							<span th:text="${formularioReserva.fnumentradasmen}"></span> x
+							3.5€
+						</p>
+						<p>
+							<span>Butacas:</span>
+							<span th:text="${formularioReserva.butacasSeleccionadas}"></span>
+						</p>
+					</div>
+					<div class="CabResumenFac">
+						<p>
+							<span>TOTAL: <span th:text="${total}"></span> €</span>
+						</p>
+					</div>
+					<div class="CabResumenTar"><p>Confirmación de compra</p></div>
+					<div class="DatTarjeta">
+						<div>
+							<label>Titular:</label>
+							<input type="text" th:field="*{titular}" required />
+						</div>
+						<div>
+							<label>Nº Tarjeta:</label>
+							<input
+								type="number"
+								th:field="*{numero}"
+								min="1000000000000000"
+								max="9999999999999999"
+								step="1"
+								required
+							/>
+						</div>
+						<div>
+							<label>Mes:</label>
+							<select th:field="*{mesCaduca}">
+								<option value="01">01</option>
+								<option value="02">02</option>
+								<option value="03">03</option>
+								<option value="04">04</option>
+								<option value="05">05</option>
+								<option value="06">06</option>
+								<option value="07">07</option>
+								<option value="08">08</option>
+								<option value="09">09</option>
+								<option value="10">10</option>
+								<option value="11">11</option>
+								<option value="12">12</option>
+							</select>
+						</div>
+						<div>
+							<label>Año:</label>
+							<select th:field="*{anioCaduca}">
+								<option value="2022">2022</option>
+								<option value="2023">2023</option>
+								<option value="2024">2024</option>
+								<option value="2025">2025</option>
+								<option value="2026">2026</option>
+							</select>
+						</div>
+						<div>
+							<label>CCS:</label>
+							<input
+								type="number"
+								th:field="*{ccs}"
+								min="100"
+								max="999"
+								required
+							/>
+						</div>
+					</div>
+					<div class="DatTarjeta">
+						<a class="atrasbtn" th:href="@{/step3}">&lt;&lt; Atrás</a>
+						<a class="homebtn" th:href="@{/home}">&nbsp;</a>
+						<input type="submit" value="Confirmar" />
+					</div>
+				</form>
+			</div>
+			<div class="pie">
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+			</div>
+		</div>
+	</body>
 </html>

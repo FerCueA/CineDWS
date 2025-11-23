@@ -26,9 +26,9 @@ public class EndController {
         double precioMenor = 3.5;
         double total = formularioReserva.getFnumentradasadult() * precioAdulto
                 + formularioReserva.getFnumentradasmen() * precioMenor;
-        // Registrar la compra
+        // Registrar la compra y obtener el ID generado
         BuyTicketsDAO compraDAO = new BuyTicketsDAO();
-        boolean compraOk = compraDAO.insertarCompra(
+        int idCompra = compraDAO.insertarCompraYObtenerId(
                 formularioReserva.getFnom(),
                 formularioReserva.getFapell(),
                 formularioReserva.getFmail(),
@@ -38,18 +38,19 @@ public class EndController {
                 formularioReserva.getAnioCaduca(),
                 formularioReserva.getCcs(),
                 (float) total);
-        // Suponiendo que el ID de la compra se puede recuperar (aquí solo ejemplo)
-        int idCompra = 1; // Debes obtener el ID real generado
+        if (idCompra == -1) {
+            // Error al insertar compra
+            return "redirect:/index";
+        }
 
-        // Registrar los tickets (uno por cada butaca) y generar lista de QR
+        // Registrar los tickets (uno por cada butaca) y generar lista de EntradaView
         TicketDAO ticketDAO = new TicketDAO();
         String[] butacas = formularioReserva.getButacasSeleccionadas().split(",");
-        java.util.List<String> qrCodes = new java.util.ArrayList<>();
+        java.util.List<es.dsw.models.EntradaView> entradas = new java.util.ArrayList<>();
         for (int i = 0; i < butacas.length; i++) {
             boolean esMenor = i < formularioReserva.getFnumentradasmen();
             float precio = esMenor ? 3.5f : 6.0f;
-            String serialCode = generarCodigoQR(formularioReserva, butacas[i]);
-            qrCodes.add(serialCode);
+            String serialCode = generarSerialUnico(idCompra, formularioReserva.getIdSesion(), butacas[i], i);
             ticketDAO.insertarTicket(
                     formularioReserva.getIdSesion(),
                     formularioReserva.getFdate(),
@@ -59,11 +60,27 @@ public class EndController {
                     precio,
                     butacas[i],
                     idCompra);
+            // Suponiendo que la butaca es tipo "F5B2" (Fila 5, Butaca 2)
+            String fila = "";
+            String butacaNum = butacas[i];
+            if (butacaNum.matches("F\\d+B\\d+")) {
+                String[] parts = butacaNum.substring(1).split("B");
+                fila = parts[0];
+                butacaNum = parts.length > 1 ? parts[1] : butacaNum;
+            }
+            entradas.add(new es.dsw.models.EntradaView(
+                    serialCode,
+                    formularioReserva.getTituloPelicula(),
+                    String.valueOf(formularioReserva.getNumSala()),
+                    formularioReserva.getFdate(),
+                    formularioReserva.getFhour(),
+                    fila,
+                    butacaNum));
         }
 
-        // Guardar los QR en el formulario para el GET
+        // Guardar las entradas en el modelo para el GET
         formularioReserva.setButacasSeleccionadas(String.join(",", butacas));
-        model.addAttribute("qrCodes", qrCodes);
+        model.addAttribute("entradas", entradas);
         model.addAttribute("formularioReserva", formularioReserva);
         model.addAttribute("qrGenerados", true);
         return "redirect:/end";
@@ -78,23 +95,49 @@ public class EndController {
                 || formularioReserva.getNumSala() == null) {
             return "redirect:/index";
         }
-        // Generar lista de QR si no existe
+        // Generar lista de EntradaView si no existe
         String[] butacas = formularioReserva.getButacasSeleccionadas() != null
                 ? formularioReserva.getButacasSeleccionadas().split(",")
                 : new String[0];
-        java.util.List<String> qrCodes = new java.util.ArrayList<>();
+        java.util.List<es.dsw.models.EntradaView> entradas = new java.util.ArrayList<>();
         for (int i = 0; i < butacas.length; i++) {
-            qrCodes.add(generarCodigoQR(formularioReserva, butacas[i]));
+            // Usar idSesion, butaca e índice para el serial en GET
+            String serialCode = generarSerialUnico(
+                    formularioReserva.getIdSesion() != null ? formularioReserva.getIdSesion() : 0,
+                    formularioReserva.getIdSesion(),
+                    butacas[i],
+                    i);
+            String fila = "";
+            String butacaNum = butacas[i];
+            if (butacaNum.matches("F\\d+B\\d+")) {
+                String[] parts = butacaNum.substring(1).split("B");
+                fila = parts[0];
+                butacaNum = parts.length > 1 ? parts[1] : butacaNum;
+            }
+            entradas.add(new es.dsw.models.EntradaView(
+                    serialCode,
+                    formularioReserva.getTituloPelicula(),
+                    String.valueOf(formularioReserva.getNumSala()),
+                    formularioReserva.getFdate(),
+                    formularioReserva.getFhour(),
+                    fila,
+                    butacaNum));
         }
         model.addAttribute("formularioReserva", formularioReserva);
-        model.addAttribute("qrCodes", qrCodes);
+        model.addAttribute("entradas", entradas);
         model.addAttribute("qrGenerados", true);
         return "views/end";
     }
 
     // Método para generar el código QR (simulado)
-    private String generarCodigoQR(FormularioReserva reserva, String butaca) {
-        // Aquí deberías usar una librería real de QR, pero para ejemplo:
-        return "QR-" + reserva.getFmail() + "-" + butaca + "-" + System.currentTimeMillis();
+    // Método para generar un serial único de 16 caracteres
+    private String generarSerialUnico(int idCompra, Integer idSesion, String butaca, int index) {
+        String base = String.format("%04d%04d%s%04d", idCompra, idSesion, butaca.replaceAll("[^A-Za-z0-9]", ""), index);
+        String hash = Integer.toHexString(base.hashCode());
+        String serial = (base + hash).replaceAll("[^A-Za-z0-9]", "");
+        if (serial.length() < 16) {
+            serial = String.format("%-16s", serial).replace(' ', 'X');
+        }
+        return serial.substring(0, 16);
     }
 }
